@@ -107,3 +107,8 @@ C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProject
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.pdb
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.InitialMIgration.resources
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.csproj.GenerateResource.cache
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.DeletingIDfromAPplicationUser.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingUserAndLocation.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingRestaurant.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.ChengingUserIdType.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddVisits.resources

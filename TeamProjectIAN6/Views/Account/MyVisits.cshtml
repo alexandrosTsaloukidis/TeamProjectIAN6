@@ -1,0 +1,29 @@
+﻿@model TeamProjectIAN6.ViewModels.UserVisitFormViewModel
+
+@{
+    ViewBag.Title = "MyVisits";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MyVisits</h2>
+
+<table class="table">
+    <tr>
+        <th>First Name</th>
+        <th>Restaurant Name</th>
+        <th>Arrival Date-Time</th>
+        <th>Departure Date-Time</th>
+
+    </tr>
+    @foreach (var item in Model.Visits)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.ApplicationUser.Firstname) </td>
+            <td>@Html.DisplayFor(modelItem => item.Restaurant.Name) </td>
+            <td>@Html.DisplayFor(modelItem => item.ArrivalDateTime) </td>
+            <td>@Html.DisplayFor(modelItem => item.DepartureDateTime) </td>
+        </tr>
+    }
+</table>
+
+

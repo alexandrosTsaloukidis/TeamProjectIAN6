@@ -177,6 +177,26 @@
     <Compile Include="Migrations\202003061531440_InitialMIgration.Designer.cs">
       <DependentUpon>202003061531440_InitialMIgration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003071712151_DeletingIDfromAPplicationUser.cs" />
+    <Compile Include="Migrations\202003071712151_DeletingIDfromAPplicationUser.Designer.cs">
+      <DependentUpon>202003071712151_DeletingIDfromAPplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003091900103_AddingUserAndLocation.cs" />
+    <Compile Include="Migrations\202003091900103_AddingUserAndLocation.Designer.cs">
+      <DependentUpon>202003091900103_AddingUserAndLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003091925023_AddingRestaurant.cs" />
+    <Compile Include="Migrations\202003091925023_AddingRestaurant.Designer.cs">
+      <DependentUpon>202003091925023_AddingRestaurant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003091932239_ChengingUserIdType.cs" />
+    <Compile Include="Migrations\202003091932239_ChengingUserIdType.Designer.cs">
+      <DependentUpon>202003091932239_ChengingUserIdType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003091933467_AddVisits.cs" />
+    <Compile Include="Migrations\202003091933467_AddVisits.Designer.cs">
+      <DependentUpon>202003091933467_AddVisits.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdultUser.cs" />
@@ -247,6 +267,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Account\MyVisits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -267,6 +288,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202003061531440_InitialMIgration.resx">
       <DependentUpon>202003061531440_InitialMIgration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003071712151_DeletingIDfromAPplicationUser.resx">
+      <DependentUpon>202003071712151_DeletingIDfromAPplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091900103_AddingUserAndLocation.resx">
+      <DependentUpon>202003091900103_AddingUserAndLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091925023_AddingRestaurant.resx">
+      <DependentUpon>202003091925023_AddingRestaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091932239_ChengingUserIdType.resx">
+      <DependentUpon>202003091932239_ChengingUserIdType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091933467_AddVisits.resx">
+      <DependentUpon>202003091933467_AddVisits.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -11,7 +11,7 @@ namespace TeamProjectIAN6.Models
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var user = (ApplicationUser) validationContext.ObjectInstance;
+            var user = (RegisterViewModel) validationContext.ObjectInstance;
 
 
             if (user.DateOfBirth == null)

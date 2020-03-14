@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TeamProjectIAN6.Models;
+using TeamProjectIAN6.ViewModels;
+using System.Data.Entity;
 
 namespace TeamProjectIAN6.Controllers
 {
@@ -151,7 +153,16 @@ namespace TeamProjectIAN6.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser 
+                { 
+                  UserName = model.Email, 
+                  Email = model.Email, 
+                  Firstname = model.Firstname,
+                  Lastname = model.Lastname,
+                  DateOfBirth = model.DateOfBirth,
+                  Gender = model.Gender
+                };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -422,6 +433,32 @@ namespace TeamProjectIAN6.Controllers
 
             base.Dispose(disposing);
         }
+
+        private ApplicationDbContext conext = new ApplicationDbContext();
+        public ActionResult MyVisits(string id)
+        {
+            var viewModel = new UserVisitFormViewModel();
+            viewModel.Visits = conext.Visits
+                .Include(v => v.ApplicationUser)
+                .Include(v => v.Restaurant)
+                .Where(v => v.ApplicationUser.Id == id)
+                .OrderByDescending(v => v.ArrivalDateTime)
+
+                ;
+
+
+            //if (id != null)
+            //{
+            //    ViewBag.UserId = id.Value;
+            //    viewModel.Visits = viewModel.Users
+            //        .Where(i => i.ID == id.Value).Single().Visits;
+
+
+            //}
+
+            return View(viewModel);
+        }
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins

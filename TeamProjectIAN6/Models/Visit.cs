@@ -9,7 +9,7 @@ namespace TeamProjectIAN6.Models
     public class Visit
     {
         public int ID { get; set; }
-        public int ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
         public int RestaurantId { get; set; }
         public DateTime? ArrivalDateTime { get; set; }
         public DateTime? DepartureDateTime { get; set; }

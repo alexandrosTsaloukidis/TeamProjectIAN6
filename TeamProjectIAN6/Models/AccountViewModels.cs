@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TeamProjectIAN5.Models;
 
 namespace TeamProjectIAN6.Models
 {
@@ -68,6 +70,20 @@ namespace TeamProjectIAN6.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        public string Firstname { get; set; }
+        [Required]
+        public string Lastname { get; set; }
+
+        [AdultUser]
+        [Required]
+        [Display(Name = "Date of Birth")]
+
+        
+        public DateTime DateOfBirth { get; set; }
+
+        public Gender Gender { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
