@@ -434,14 +434,16 @@ namespace TeamProjectIAN6.Controllers
             base.Dispose(disposing);
         }
 
-        private ApplicationDbContext conext = new ApplicationDbContext();
-        public ActionResult MyVisits(string id)
+        private ApplicationDbContext context = new ApplicationDbContext();
+        [Authorize]
+        public ActionResult MyVisits()
         {
+            string userId = User.Identity.GetUserId();
             var viewModel = new UserVisitFormViewModel();
-            viewModel.Visits = conext.Visits
+            viewModel.Visits = context.Visits
                 .Include(v => v.ApplicationUser)
                 .Include(v => v.Restaurant)
-                .Where(v => v.ApplicationUser.Id == id)
+                .Where(v => v.ApplicationUser.Id == userId)
                 .OrderByDescending(v => v.ArrivalDateTime)
 
                 ;
@@ -458,6 +460,30 @@ namespace TeamProjectIAN6.Controllers
 
             return View(viewModel);
         }
+
+        //GET: Profile
+        [Authorize]
+        public ActionResult MyProfile(PorfileViewModel porfileViewModel)
+        {
+            string userId = User.Identity.GetUserId();
+            var userFromDB = context.Users.Single(u => u.Id == userId);
+            var occupationFromDB = context.Occupations.Single(o => o.Id == userFromDB.OccupationId);
+
+            var viewModel = new PorfileViewModel
+            {
+               Firstname = userFromDB.Firstname,
+               Lastname = userFromDB.Lastname,
+               DateOfBirth = userFromDB.DateOfBirth,
+               Occupation = context.Occupations.Single(o => o.Id == userFromDB.OccupationId).Name,
+               Education = context.Educations.Single(o => o.Id == userFromDB.EducationId).Name
+            };
+
+            return View(viewModel);
+        }
+
+
+
+
 
 
         #region Helpers

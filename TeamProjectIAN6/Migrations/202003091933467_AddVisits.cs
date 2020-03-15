@@ -7,6 +7,7 @@ namespace TeamProjectIAN6.Migrations
     {
         public override void Up()
         {
+ 
             Sql("INSERT INTO VISIT (RestaurantId, ApplicationUserId) VALUES (1, 'f89193b9-22c1-4dae-aed3-68331803fc81')");
             Sql("INSERT INTO VISIT (RestaurantId, ApplicationUserId) VALUES (2, 'id_1')");
             Sql("INSERT INTO VISIT (RestaurantId, ApplicationUserId) VALUES (3, 'id_2')");

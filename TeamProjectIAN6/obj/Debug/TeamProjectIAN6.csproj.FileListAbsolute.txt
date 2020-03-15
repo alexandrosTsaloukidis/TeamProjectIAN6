@@ -112,3 +112,8 @@ C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProject
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingRestaurant.resources
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.ChengingUserIdType.resources
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddVisits.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingOccupationAndEducation.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.Empty.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.ChangingEduactionNameFromIntTostring.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingEducationAndOccupation.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.UPdatingUserOccupationAndEducation.resources

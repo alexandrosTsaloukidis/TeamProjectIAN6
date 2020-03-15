@@ -1,0 +1,20 @@
+﻿
+@model TeamProjectIAN6.ViewModels.PorfileViewModel
+
+@{
+    ViewBag.Title = "MyProfile";
+}
+
+<h2>My Profile</h2>
+
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayFor(model => model.Firstname)</th>
+        <th>@Html.DisplayFor(model => model.Lastname)</th>
+        <th>@Html.DisplayFor(model => model.Age)</th>
+        <th>@Html.DisplayFor(model => model.Education)</th>
+        <th>@Html.DisplayFor(model => model.Occupation)</th>
+    </tr>
+ 
+</table>
