@@ -16,7 +16,16 @@ namespace TeamProjectIAN6.Models
 
         public int LocationID { get; set; }
         public Parking Parking { get; set; }
-        public Location Location { get; set; }
+
+        public string StreetName { get; set; }
+
+        public string StreetNumber { get; set; }
+
+        public double Lattitude { get; set; }
+        public double Longitude { get; set; }
+
+        public double PostalCode { get; set; }
+
         public virtual ICollection<Visit> Visits { get; set; }
     }
 }

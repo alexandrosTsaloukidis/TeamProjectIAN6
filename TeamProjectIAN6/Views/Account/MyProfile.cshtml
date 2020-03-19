@@ -1,5 +1,5 @@
 ﻿
-@model TeamProjectIAN6.ViewModels.PorfileViewModel
+@model TeamProjectIAN6.Models.ApplicationUser
 
 @{
     ViewBag.Title = "MyProfile";
@@ -13,7 +13,7 @@
         <th>@Html.DisplayFor(model => model.Firstname)</th>
         <th>@Html.DisplayFor(model => model.Lastname)</th>
         <th>@Html.DisplayFor(model => model.Age)</th>
-        <th>@Html.DisplayFor(model => model.Education)</th>
+        <th>@Html.DisplayFor(model => model.Education.Name)</th>
         <th>@Html.DisplayFor(model => model.Occupation)</th>
     </tr>
  

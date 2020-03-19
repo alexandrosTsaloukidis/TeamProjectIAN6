@@ -1,0 +1,35 @@
+﻿@model TeamProjectIAN6.ViewModels.PorfileViewModel
+@{
+    ViewBag.Title = "UserForm";
+}
+
+<h2>UserForm</h2>
+
+
+@using (Html.BeginForm("Edit", "Account"))
+{
+
+    <p class="alert alert-info">All fields are <strong>required</strong></p>
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.Firstname)
+        @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Firstname)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.EducationId)
+        @Html.DropDownListFor(m => m.EducationId, new SelectList(Model.Educations, "Id", "Name"), "", new { @class = "form-control" })
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

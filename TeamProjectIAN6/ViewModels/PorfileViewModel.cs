@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using TeamProjectIAN6.Models;
@@ -22,7 +23,10 @@ namespace TeamProjectIAN6.ViewModels
             } 
         }
 
-        public string Education { get; set; }
+        [Display(Name = "Education")]
+        public int EducationId { get; set; }
+
+        public IEnumerable<Education> Educations { get; set; }
 
         
 

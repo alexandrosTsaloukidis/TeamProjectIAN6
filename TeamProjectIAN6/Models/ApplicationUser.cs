@@ -19,6 +19,14 @@ namespace TeamProjectIAN6.Models
         
         public DateTime DateOfBirth { get; set; }
 
+        public int Age 
+        {
+            get
+            {
+                return DateTime.Now.Year - DateOfBirth.Year;
+            }  
+        }
+
         public Gender Gender { get; set; }
 
         public virtual ICollection<Visit> Visits { get; set; }

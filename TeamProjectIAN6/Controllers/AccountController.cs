@@ -435,6 +435,7 @@ namespace TeamProjectIAN6.Controllers
         }
 
         private ApplicationDbContext context = new ApplicationDbContext();
+
         [Authorize]
         public ActionResult MyVisits()
         {
@@ -463,25 +464,55 @@ namespace TeamProjectIAN6.Controllers
 
         //GET: Profile
         [Authorize]
-        public ActionResult MyProfile(PorfileViewModel porfileViewModel)
+        public ActionResult MyProfile()
         {
-            string userId = User.Identity.GetUserId();
-            var userFromDB = context.Users.Single(u => u.Id == userId);
-            var occupationFromDB = context.Occupations.Single(o => o.Id == userFromDB.OccupationId);
+            var userId = User.Identity.GetUserId();
+            var user = context.Users
+                .Include(u => u.Education).SingleOrDefault(u => u.Id == userId);
+
+            if (user == null)
+                return HttpNotFound();
+
+            return View(user);
+           
+        }
+
+        //GET: account/edit
+        [Authorize]
+        public ActionResult Edit()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = context.Users.SingleOrDefault(u => u.Id == userId);
+
+            if (user == null)
+                return HttpNotFound();
 
             var viewModel = new PorfileViewModel
             {
-               Firstname = userFromDB.Firstname,
-               Lastname = userFromDB.Lastname,
-               DateOfBirth = userFromDB.DateOfBirth,
-               Occupation = context.Occupations.Single(o => o.Id == userFromDB.OccupationId).Name,
-               Education = context.Educations.Single(o => o.Id == userFromDB.EducationId).Name
+                Educations = context.Educations.ToList()
             };
 
-            return View(viewModel);
+            return View("UserForm", viewModel);
+
         }
 
+        //POST
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ApplicationUser user)
+        {
+            if (!ModelState.IsValid)
+                return View("MyProfile");
 
+            var userId = User.Identity.GetUserId();
+            var userInDb = context.Users.Single(u => u.Id == userId);
+            userInDb.Firstname = user.Firstname;
+            userInDb.EducationId = user.EducationId;
+            context.SaveChanges();
+
+            return RedirectToAction("MyProfile");
+        }
 
 
 
