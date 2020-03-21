@@ -24,7 +24,8 @@ namespace TeamProjectIAN6.ViewModels
         }
 
         [Display(Name = "Education")]
-        public int EducationId { get; set; }
+
+        public string Education { get; set; }
 
         public IEnumerable<Education> Educations { get; set; }
 

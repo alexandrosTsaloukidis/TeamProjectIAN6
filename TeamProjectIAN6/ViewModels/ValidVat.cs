@@ -10,28 +10,21 @@ namespace TeamProjectIAN6.ViewModels
 
     public class ValidVat : ValidationAttribute
     {
-        public override bool IsValid(object vatNumber)
+        protected override ValidationResult IsValid(object vatNumber, ValidationContext validationContext)
         {
-            bool isValid = false; 
+            bool isValid = false;
             try
             {
 
                 using (var client = new TaxService.checkVatPortTypeClient())
                 {
                     string name;
-                    bool valid;
                     string address;
 
                     string countryCode = "EL";
                     string vatNumberStr = Convert.ToString(vatNumber);
 
-                    var result = client.checkVat(ref countryCode, ref vatNumberStr, out valid, out name, out address);
-
-                    Console.WriteLine(result);
-                    Console.WriteLine(valid ? "VALID" : "NOT VALID");
-                    Console.WriteLine(name);
-                    Console.WriteLine(address);
-                    Console.ReadKey();
+                    var result = client.checkVat(ref countryCode, ref vatNumberStr, out isValid, out name, out address);
                 }
             }
             catch (Exception e)
@@ -39,7 +32,7 @@ namespace TeamProjectIAN6.ViewModels
                 Console.WriteLine(e);
             }
 
-            return (isValid);
+            return (isValid)? ValidationResult.Success: new ValidationResult("Invalid Vat");
         }
     }
 }

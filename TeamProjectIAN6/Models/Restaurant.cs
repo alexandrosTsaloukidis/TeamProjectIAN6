@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TeamProjectIAN6.Interfaces;
 
 namespace TeamProjectIAN6.Models
 {
-    public class Restaurant
+    public class Restaurant : IBusiness
     {
         public int ID { get; set; }
         public string Name { get; set; }
@@ -27,5 +28,6 @@ namespace TeamProjectIAN6.Models
         public double PostalCode { get; set; }
 
         public virtual ICollection<Visit> Visits { get; set; }
+        public  ICollection<RestaurantOwnership> RestaurantOwnerships { get; set; }
     }
 }

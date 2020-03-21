@@ -1,0 +1,23 @@
+﻿@model TeamProjectIAN6.ViewModels.RestaurantFormViewModel
+
+@{
+    ViewBag.Title = "RegisterBusiness";
+}
+
+<h2>RegisterBusiness</h2>
+
+@using (Html.BeginForm("RegisterBusiness", "Account"))
+{
+
+    <p class="alert alert-info">All fields are <strong>required</strong></p>
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.Vat)
+        @Html.TextBoxFor(m => m.Vat, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Vat)
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Save</button>
+}

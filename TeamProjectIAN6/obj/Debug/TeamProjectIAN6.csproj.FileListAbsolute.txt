@@ -118,3 +118,13 @@ C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProject
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingEducationAndOccupation.resources
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.UPdatingUserOccupationAndEducation.resources
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.PrepraingForTheApiExploit.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingRestaurantOwnershipInterim.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\bin\AutoMapper.dll
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\bin\System.Net.Http.Formatting.dll
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\bin\System.Web.Http.dll
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\bin\System.Web.Http.WebHost.dll
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\bin\AutoMapper.pdb
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\bin\AutoMapper.xml
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\bin\System.Net.Http.Formatting.xml
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\bin\System.Web.Http.xml
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\bin\System.Web.Http.WebHost.xml

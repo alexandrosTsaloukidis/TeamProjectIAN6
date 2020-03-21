@@ -489,33 +489,76 @@ namespace TeamProjectIAN6.Controllers
 
             var viewModel = new PorfileViewModel
             {
-                Educations = context.Educations.ToList()
+                Firstname = user.Firstname,
+                Educations = context.Educations.ToList(),
+                Education = context.Educations.SingleOrDefault(e => e.Id == user.EducationId).Name
             };
 
             return View("UserForm", viewModel);
 
         }
 
+
+
+
         //POST
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ApplicationUser user)
+        public ActionResult Edit(PorfileViewModel porfileViewModel)
         {
-            if (!ModelState.IsValid)
-                return View("MyProfile");
+            
+            var education = context.Educations.SingleOrDefault(e => e.Name == porfileViewModel.Education);
+            if (education == null)
+            {
+                education = new Education() { Name = porfileViewModel.Education };
+                context.Educations.Add(education);
+                context.SaveChanges();
+            }
+            
+            context.Educations.SingleOrDefault(e => e.Name == porfileViewModel.Education);
 
+   
+            if (!ModelState.IsValid)
+                return RedirectToAction("MyProfile");
+
+            var x = context.Educations.SingleOrDefault(e => e.Name == porfileViewModel.Education);
             var userId = User.Identity.GetUserId();
             var userInDb = context.Users.Single(u => u.Id == userId);
-            userInDb.Firstname = user.Firstname;
-            userInDb.EducationId = user.EducationId;
+            userInDb.Firstname = porfileViewModel.Firstname;
+            userInDb.EducationId = context.Educations.SingleOrDefault(e => e.Name == porfileViewModel.Education).Id;
             context.SaveChanges();
 
             return RedirectToAction("MyProfile");
         }
 
 
+        //GET
+        public ActionResult RegisterBusiness()
+        {
 
+
+     
+
+            return View();
+
+
+        }
+
+
+        //POST
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterBusiness(RestaurantFormViewModel restaurantFormViewModel)
+        {
+
+
+
+            return View();
+
+
+        }
 
         #region Helpers
         // Used for XSRF protection when adding external logins
