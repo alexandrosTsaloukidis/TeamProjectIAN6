@@ -534,6 +534,7 @@ namespace TeamProjectIAN6.Controllers
 
 
         //GET
+        [Authorize]
         public ActionResult RegisterBusiness()
         {
 
@@ -558,6 +559,18 @@ namespace TeamProjectIAN6.Controllers
             return View();
 
 
+        }
+
+        //GET
+        [Authorize]
+        public ActionResult MyBusinesses()
+        {
+            var userId = User.Identity.GetUserId();
+            var businesses = context.RestaurantOwnerships
+                               .Where(ro => ro.ApplicationUserId == userId)
+                               .Select(ro => ro.Restaurant).ToList()
+                               ;
+            return View(businesses);
         }
 
         #region Helpers

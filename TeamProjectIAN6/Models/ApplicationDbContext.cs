@@ -18,6 +18,12 @@ namespace TeamProjectIAN6.Models
 
         public DbSet<Occupation> Occupations { get; set; }
 
+        public DbSet<Location> Locations { get; set; }
+
+        public DbSet<Area> Areas { get; set; }
+
+        public DbSet<RestaurantOwnership> RestaurantOwnerships { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

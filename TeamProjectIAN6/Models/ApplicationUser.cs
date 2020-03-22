@@ -35,8 +35,10 @@ namespace TeamProjectIAN6.Models
         public Education Education { get; set; }
 
         public int? OccupationId { get; set; }
-        public Education Occupation { get; set; }
+        public Occupation Occupation { get; set; }
         public virtual ICollection<Visit> Visits { get; set; }
+
+
         public ICollection<RestaurantOwnership> RestaurantOwnerships { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

@@ -6,7 +6,7 @@ using TeamProjectIAN6.Interfaces;
 
 namespace TeamProjectIAN6.Models
 {
-    public class Restaurant : IBusiness
+    public class RestaurantDto : IBusiness
     {
         public int ID { get; set; }
         public string Name { get; set; }
@@ -15,9 +15,7 @@ namespace TeamProjectIAN6.Models
 
         public string Category { get; set; }
 
-
         public int LocationID { get; set; }
-        public Location Location { get; set; }
         public Parking Parking { get; set; }
 
         public string StreetName { get; set; }
@@ -35,11 +33,8 @@ namespace TeamProjectIAN6.Models
             IsOpened = true;
         }
 
-        public int? AreaID { get; set; }
-        public Area Area { get; set; }
-
         public ICollection<RestaurantOwnership> RestaurantOwnerships { get; set; }
         public virtual ICollection<Visit> Visits { get; set; }
-       
+
     }
 }

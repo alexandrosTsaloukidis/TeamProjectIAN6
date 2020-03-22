@@ -5,10 +5,10 @@ using System.Web;
 
 namespace TeamProjectIAN6.Models
 {
-    public class Location
+    public class LocationDto
     {
         public int ID { get; set; }
-  
+
         public string Nomos { get; set; }
 
 

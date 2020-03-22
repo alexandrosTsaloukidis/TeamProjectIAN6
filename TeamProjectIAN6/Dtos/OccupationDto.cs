@@ -5,12 +5,9 @@ using System.Web;
 
 namespace TeamProjectIAN6.Models
 {
-    public class Location
+    public class OccupationDto
     {
-        public int ID { get; set; }
-  
-        public string Nomos { get; set; }
-
-
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

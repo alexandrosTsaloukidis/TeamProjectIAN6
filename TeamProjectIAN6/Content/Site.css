@@ -26,3 +26,26 @@ textarea {
 .input-validation-error {
     border: 1px solid #ff0000;
 }
+
+
+
+
+.businesses {
+    list-style: none;
+}
+
+    .businesses > li {
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+
+
+        .businesses > li .actions {
+            font-size: 15px;
+            display: none;
+        }
+
+        .businesses > li:hover .actions {
+            display: block;
+        }

@@ -11,7 +11,7 @@ namespace TeamProjectIAN6.Models
     {
         [Key]
         [Column(Order = 1)]
-        public int ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
 
         [Key]
         [Column(Order = 2)]

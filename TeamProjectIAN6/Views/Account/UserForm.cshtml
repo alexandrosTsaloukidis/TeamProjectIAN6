@@ -19,7 +19,7 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Education)
-        @Html.TextBoxFor(m => m.Education, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Education, new { @id = "actor", @name = "actor", @type = "text", @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Education)
     </div>
 
@@ -30,6 +30,35 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            let viewModel = {
+                educationIds: []
+            };
+
+            var educations = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/educations?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#education').typeahead({
+                minLength: 3,
+                highlight: true
+            },
+                {
+                    name: 'educations',
+                    display: 'name',
+                    source: actors
+                }).on("typeahead:select", function (e, education) {
+                    viewModel.educationId = education.id;
+                    console.log(education.id);
+                });
+        });
+    </script>
 }
 
 
