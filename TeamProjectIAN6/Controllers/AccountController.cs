@@ -487,12 +487,15 @@ namespace TeamProjectIAN6.Controllers
             if (user == null)
                 return HttpNotFound();
 
-            var viewModel = new PorfileViewModel
-            {
-                Firstname = user.Firstname,
-                Educations = context.Educations.ToList(),
-                Education = context.Educations.SingleOrDefault(e => e.Id == user.EducationId).Name
-            };
+            var viewModel = new PorfileViewModel();
+            viewModel.Firstname = user.Firstname;
+            if (user.EducationId != null)
+              viewModel.Education = context.Educations.SingleOrDefault(e => e.Id == user.EducationId).Name;
+            //{
+            //    Firstname = user.Firstname,
+            //    Educations = context.Educations.ToList(),
+            //    Education = context.Educations.SingleOrDefault(e => e.Id == user.EducationId).Name
+            //};
 
             return View("UserForm", viewModel);
 
