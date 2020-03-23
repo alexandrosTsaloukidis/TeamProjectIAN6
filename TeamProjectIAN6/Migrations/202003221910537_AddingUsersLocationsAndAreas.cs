@@ -2,7 +2,7 @@ namespace TeamProjectIAN6.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class AddingUsersLocationsAndAreas : DbMigration
     {
         public override void Up()
@@ -17,19 +17,22 @@ namespace TeamProjectIAN6.Migrations
                     INSERT [dbo].[AspNetUsers] ([Id], [Firstname], [Lastname], [DateOfBirth], [Gender], [Email], [UserName], [EmailConfirmed], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnabled], [AccessFailedCount]) VALUES (N'id_7', N'Antonis', N'Papageorgiou', CAST(N'1980-05-03T00:00:00.000' AS DateTime), 2, N'nikos@yahoo.com', N'nikos@yahoo.com', 1, 0, 0, 0, 0)
                     ");
 
+            Sql(@"SET IDENTITY_INSERT [dbo].[Location] ON 
+                    INSERT [dbo].[Location] ([ID], [Nomos]) VALUES (7, N'ATTIKI')
+                    INSERT [dbo].[Location] ([ID], [Nomos]) VALUES (8, N'THESSALONIKI')
+                    INSERT [dbo].[Location] ([ID], [Nomos]) VALUES (9, N'PATRA')
+                    INSERT [dbo].[Location] ([ID], [Nomos]) VALUES (10, N'HRAKLEIO')
+                    SET IDENTITY_INSERT [dbo].[Location] OFF");
 
-            Sql("Insert into LOCATION (NOMOS) VALUES ('ATTIKI')");
-            Sql("Insert into LOCATION (NOMOS) VALUES ('THESSALONIKI')");
-            Sql("Insert into LOCATION (NOMOS) VALUES ('PATRA')");
-            Sql("Insert into LOCATION (NOMOS) VALUES ('HRAKLEIO')");
-
-            Sql("Insert into AREA (NAME) VALUES ('ATHENS')");
-            Sql("Insert into AREA (NAME) VALUES ('GlYFADA')");
-            Sql("Insert into AREA (NAME) VALUES ('GAZI')");
-            Sql("Insert into AREA (NAME) VALUES ('PETRALONA')");
+            Sql(@"SET IDENTITY_INSERT[dbo].[Area] ON
+                    INSERT[dbo].[Area] ([Id], [Name]) VALUES(3, N'ATHENS')
+                    INSERT[dbo].[Area] ([Id], [Name]) VALUES(4, N'GlYFADA')
+                    INSERT[dbo].[Area]([Id], [Name]) VALUES(5, N'GAZI')
+                    INSERT[dbo].[Area]([Id], [Name]) VALUES(6, N'PETRALONA')
+                    SET IDENTITY_INSERT[dbo].[Area] OFF");
 
         }
-        
+
 
 
         public override void Down()
