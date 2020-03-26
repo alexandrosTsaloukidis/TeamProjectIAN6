@@ -38,6 +38,8 @@ namespace TeamProjectIAN6.Models
         public Occupation Occupation { get; set; }
         public virtual ICollection<Visit> Visits { get; set; }
 
+        public ICollection<Opening> Users { get; set; }
+        public ICollection<Opening> UserClosers { get; set; }
 
         public ICollection<RestaurantOwnership> RestaurantOwnerships { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

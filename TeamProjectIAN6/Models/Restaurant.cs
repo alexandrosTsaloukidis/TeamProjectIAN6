@@ -35,8 +35,15 @@ namespace TeamProjectIAN6.Models
             IsOpened = true;
         }
 
+        public void Close()
+        {
+            IsOpened = false;
+        }
+
         public int? AreaID { get; set; }
         public Area Area { get; set; }
+
+        public ICollection<Opening> Openings { get; set; }
 
         public ICollection<RestaurantOwnership> RestaurantOwnerships { get; set; }
         public virtual ICollection<Visit> Visits { get; set; }

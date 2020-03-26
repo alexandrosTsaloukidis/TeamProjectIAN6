@@ -22,6 +22,8 @@ namespace TeamProjectIAN6.Models
 
         public DbSet<Area> Areas { get; set; }
 
+        public DbSet<Opening> Openings { get; set; }
+
         public DbSet<RestaurantOwnership> RestaurantOwnerships { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -37,6 +39,18 @@ namespace TeamProjectIAN6.Models
                 .HasOptional(r => r.Parking)
                 .WithRequired(p => p.Restaurant)
                 ;
+
+            modelBuilder.Entity<Opening>()
+                .HasOptional(o => o.User)
+                .WithMany(u => u.Users)
+                .HasForeignKey(o => o.UserId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Opening>()
+                .HasOptional(o => o.UserCloser)
+                .WithMany(u => u.UserClosers)
+                .HasForeignKey(o => o.UserCloserId)
+                .WillCascadeOnDelete(false);
 
         }
 

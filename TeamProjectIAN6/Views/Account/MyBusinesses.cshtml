@@ -17,57 +17,78 @@
                 <span>
                     @business.Category
                 </span>
+                @if (!@business.IsOpened)
+                {
+                    <button id="buttonClosed" data-business-id="@business.ID" class="btn btn-success btn-sm js-toggle-open" onclick="setButtonStyleWhenClosed('buttonClosed')">Open</button>
+                }
+                @if (@business.IsOpened)
+                {
+                    <button id="buttonOpened" data-business-id="@business.ID" class="btn btn-danger btn-sm js-toggle-open" onclick="setButtonStyleWhenOpened('buttonOpened')">Close</button>
+                }
                 <div class="actions">
                     <a href="#">Edit</a> |
                     <a href="#" class="js-delete-business" data-business-id="@business.ID">Delete</a>
                 </div>
+
+
             </div>
         </li>
     }
 </ul>
 
-@*@section scripts
+@section scripts
 {
     <script>
         $(document).ready(function () {
-            $(".js-cancel-business").click(function (e) {
-                var link = $(e.target);
 
-                bootbox.dialog({
-                    title: 'Confirm Cancelation',
-                    message: '<p>Are you sure to Delete this Business?</p>',
-                    size: 'large',
-                    onEscape: true,
-                    backdrop: true,
-                    buttons: {
-                        no: {
-                            label: 'No',
-                            className: 'btn-default',
-                            callback: function () {
-                                bootbox.hideAll();
-                            }
-                        },
-                        yes: {
-                            label: 'Yes',
-                            className: 'btn-danger',
-                            callback: function () {
-                                $.ajax({
-                                    url: "/api/businesss/" + link.attr("data-business-id"),
-                                    method: "DELETE"
-                                })
-                                    .done(function () {
-                                        link.parents("li").fadeOut(function () {
-                                            $(this).remove();
-                                        });
-                                    })
-                                    .fail(function () {
-                                        alert("Ooops something went wrong");
-                                    });
-                            }
-                        }
-                    }
-                })
+            $(".js-toggle-open").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/openings", { restaurantId: button.attr("data-business-id") })
+                    .done(function () {
+
+                    })
+                    .fail(function (response) {
+                        alert("Open failed");
+                    });
             });
         });
+
+       let count = 0;
+        function setButtonStyleWhenOpened(btn) {
+            
+            let property = document.getElementById(btn);
+            if (count == 0) {
+                property.innerHTML = "Open"; 
+                property.className = "btn btn-success btn-sm js-toggle-open";
+                console.log("open");
+                count = 1;
+            }
+            else {
+                property.innerHTML = "Close";
+                property.className = "btn btn-danger btn-sm js-toggle-open";
+                console.log("close");
+                count = 0;
+            }
+        }
+
+
+        function setButtonStyleWhenClosed(btn) {
+          
+            let property = document.getElementById(btn);
+            if (count == 0) {
+                property.innerHTML = "Close";
+                property.className = "btn btn-danger btn-sm js-toggle-open";
+                count = 1;
+                console.log("close");
+            }
+            else {
+                property.innerHTML = "Open";
+                property.className = "btn btn-success btn-sm js-toggle-open";
+                console.log("open");
+                count = 0;
+            }
+        }
+
     </script>
-}*@
+}
+

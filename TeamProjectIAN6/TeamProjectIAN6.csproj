@@ -190,11 +190,12 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\EducationsController.cs" />
+    <Compile Include="Controllers\api\OpeningsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Dtos\EducationDto.cs" />
-    <Compile Include="Dtos\LocationDto.cs" />
     <Compile Include="Dtos\OccupationDto.cs" />
+    <Compile Include="Dtos\OpeningDto.cs" />
     <Compile Include="Dtos\RestaurantDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -232,8 +233,37 @@
     <Compile Include="Migrations\202003230719468_AddingAnotherOwnerToAnotherRestaurant.Designer.cs">
       <DependentUpon>202003230719468_AddingAnotherOwnerToAnotherRestaurant.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003251152290_AddingOpenings.cs" />
+    <Compile Include="Migrations\202003251152290_AddingOpenings.Designer.cs">
+      <DependentUpon>202003251152290_AddingOpenings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.cs" />
+    <Compile Include="Migrations\202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.Designer.cs">
+      <DependentUpon>202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003251330053_AddingUserCloserToOPneing.cs" />
+    <Compile Include="Migrations\202003251330053_AddingUserCloserToOPneing.Designer.cs">
+      <DependentUpon>202003251330053_AddingUserCloserToOPneing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003251356201_test.cs" />
+    <Compile Include="Migrations\202003251356201_test.Designer.cs">
+      <DependentUpon>202003251356201_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003251402365_deletingopenings.cs" />
+    <Compile Include="Migrations\202003251402365_deletingopenings.Designer.cs">
+      <DependentUpon>202003251402365_deletingopenings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003251412453_addingOpening.cs" />
+    <Compile Include="Migrations\202003251412453_addingOpening.Designer.cs">
+      <DependentUpon>202003251412453_addingOpening.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003261917423_MakingOpeningOptional.cs" />
+    <Compile Include="Migrations\202003261917423_MakingOpeningOptional.Designer.cs">
+      <DependentUpon>202003261917423_MakingOpeningOptional.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Area.cs" />
+    <Compile Include="Models\Opening.cs" />
     <Compile Include="Models\RestaurantOwnership.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\AdultUser.cs" />
@@ -379,6 +409,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003230719468_AddingAnotherOwnerToAnotherRestaurant.resx">
       <DependentUpon>202003230719468_AddingAnotherOwnerToAnotherRestaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251152290_AddingOpenings.resx">
+      <DependentUpon>202003251152290_AddingOpenings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.resx">
+      <DependentUpon>202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251330053_AddingUserCloserToOPneing.resx">
+      <DependentUpon>202003251330053_AddingUserCloserToOPneing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251356201_test.resx">
+      <DependentUpon>202003251356201_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251402365_deletingopenings.resx">
+      <DependentUpon>202003251402365_deletingopenings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251412453_addingOpening.resx">
+      <DependentUpon>202003251412453_addingOpening.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003261917423_MakingOpeningOptional.resx">
+      <DependentUpon>202003261917423_MakingOpeningOptional.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
