@@ -189,11 +189,18 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\AreasController.cs" />
+    <Compile Include="Controllers\api\CategoriesController.cs" />
     <Compile Include="Controllers\api\EducationsController.cs" />
+    <Compile Include="Controllers\api\LocationsController.cs" />
     <Compile Include="Controllers\api\OpeningsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RestaurantController.cs" />
+    <Compile Include="Dtos\AreaDto.cs" />
+    <Compile Include="Dtos\CategoryDto.cs" />
     <Compile Include="Dtos\EducationDto.cs" />
+    <Compile Include="Dtos\LocationDto.cs" />
     <Compile Include="Dtos\OccupationDto.cs" />
     <Compile Include="Dtos\OpeningDto.cs" />
     <Compile Include="Dtos\RestaurantDto.cs" />
@@ -261,8 +268,30 @@
     <Compile Include="Migrations\202003261917423_MakingOpeningOptional.Designer.cs">
       <DependentUpon>202003261917423_MakingOpeningOptional.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003262033247_IncludingCategoryAsClass.cs" />
+    <Compile Include="Migrations\202003262033247_IncludingCategoryAsClass.Designer.cs">
+      <DependentUpon>202003262033247_IncludingCategoryAsClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003272044464_MakingRestaurantOwnrshipsLessStrict.cs" />
+    <Compile Include="Migrations\202003272044464_MakingRestaurantOwnrshipsLessStrict.Designer.cs">
+      <DependentUpon>202003272044464_MakingRestaurantOwnrshipsLessStrict.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003272051143_makingrestaurantidlessstrictinownerships.cs" />
+    <Compile Include="Migrations\202003272051143_makingrestaurantidlessstrictinownerships.Designer.cs">
+      <DependentUpon>202003272051143_makingrestaurantidlessstrictinownerships.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003282159182_AddingEventPlace.cs" />
+    <Compile Include="Migrations\202003282159182_AddingEventPlace.Designer.cs">
+      <DependentUpon>202003282159182_AddingEventPlace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003291420100_RenameingNomosToNameInLocation.cs" />
+    <Compile Include="Migrations\202003291420100_RenameingNomosToNameInLocation.Designer.cs">
+      <DependentUpon>202003291420100_RenameingNomosToNameInLocation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Area.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\EventPlace.cs" />
     <Compile Include="Models\Opening.cs" />
     <Compile Include="Models\RestaurantOwnership.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -281,7 +310,6 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BusinessFormViewModel.cs" />
     <Compile Include="ViewModels\PorfileViewModel.cs" />
-    <Compile Include="ViewModels\RestaurantFormViewModel.cs" />
     <Compile Include="ViewModels\UserVisitFormViewModel.cs" />
     <Compile Include="ViewModels\ValidVat.cs" />
   </ItemGroup>
@@ -296,10 +324,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Connected Services\TaxService\checkVatService.wsdl" />
@@ -323,6 +354,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -362,6 +397,7 @@
     <Content Include="Views\Account\UserForm.cshtml" />
     <Content Include="Views\Account\RegisterBusiness.cshtml" />
     <Content Include="Views\Account\MyBusinesses.cshtml" />
+    <Content Include="Views\Restaurant\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -430,6 +466,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003261917423_MakingOpeningOptional.resx">
       <DependentUpon>202003261917423_MakingOpeningOptional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003262033247_IncludingCategoryAsClass.resx">
+      <DependentUpon>202003262033247_IncludingCategoryAsClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003272044464_MakingRestaurantOwnrshipsLessStrict.resx">
+      <DependentUpon>202003272044464_MakingRestaurantOwnrshipsLessStrict.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003272051143_makingrestaurantidlessstrictinownerships.resx">
+      <DependentUpon>202003272051143_makingrestaurantidlessstrictinownerships.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003282159182_AddingEventPlace.resx">
+      <DependentUpon>202003282159182_AddingEventPlace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003291420100_RenameingNomosToNameInLocation.resx">
+      <DependentUpon>202003291420100_RenameingNomosToNameInLocation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

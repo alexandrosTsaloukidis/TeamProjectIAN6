@@ -13,7 +13,7 @@ namespace TeamProjectIAN6.Models
 
         public int Capacity { get; set; }
 
-        public string Category { get; set; }
+        public int? CategoryID { get; set; }
 
 
         public int LocationID { get; set; }
@@ -43,10 +43,14 @@ namespace TeamProjectIAN6.Models
         public int? AreaID { get; set; }
         public Area Area { get; set; }
 
+        public Category Category { get; set; }
         public ICollection<Opening> Openings { get; set; }
 
         public ICollection<RestaurantOwnership> RestaurantOwnerships { get; set; }
         public virtual ICollection<Visit> Visits { get; set; }
+
+
+    
        
     }
 }

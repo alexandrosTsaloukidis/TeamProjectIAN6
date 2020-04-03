@@ -14,6 +14,9 @@ namespace TeamProjectIAN6.App_Start
         {
             CreateMap<Education, EducationDto>();
             CreateMap<Restaurant, RestaurantDto>();
+            CreateMap<Category, CategoryDto>();
+            CreateMap<Area, AreaDto>();
+            CreateMap<Location, LocationDto>();
         }
     }
 }

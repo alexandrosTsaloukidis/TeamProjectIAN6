@@ -20,12 +20,23 @@ namespace TeamProjectIAN6.Controllers.api
 
         // GET /api/educations
 
-        public IEnumerable<EducationDto> GetEducations()
+        public IHttpActionResult GetEducations(string query = null)
         {
-            var educations = context.Educations;
 
-            return educations.Select(Mapper.Map<Education, EducationDto>);
+            var educationsQuery = context.Educations.AsQueryable();
+            if (!String.IsNullOrWhiteSpace(query))
+                educationsQuery = educationsQuery.Where(e => e.Name.Contains(query));
+
+            var educations = educationsQuery.ToList()
+                .Select(Mapper.Map<Education, EducationDto>);
+            return Ok(educations);
         }
 
+        [HttpPost]
+        public IHttpActionResult NewEducation(EducationDto educationDto)
+        {
+
+            return Ok();
+        }
     }
 }

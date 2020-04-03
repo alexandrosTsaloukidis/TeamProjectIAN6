@@ -18,13 +18,29 @@ namespace TeamProjectIAN6.ViewModels
 
         public string Category { get; set; }
 
+     
         [Required]
-        public int LocationID { get; set; }
+        public string Location { get; set; }
+
+        [Required]
+        public string Area { get; set; }
+
+        public string StreetName { get; set; }
+
+        public string StreetNumber { get; set; } 
+
+      
+        public double Lattitude { get; set; }  // todo to remove
+        public double Longitude { get; set; } // todo to remove
+
+        public double PostalCode { get; set; }
 
         [Required]
         [ValidVat]
         public string VatNumber { get; set; }
-
+        public IEnumerable<Category> Categories { get; set; }
         public IEnumerable<Location> Locations { get; set; }
+
+        public IEnumerable<Area> Areas { get; set; }
     }
 }

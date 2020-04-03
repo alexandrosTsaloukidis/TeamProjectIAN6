@@ -9,7 +9,10 @@ namespace TeamProjectIAN6
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/typeahead.bundle.js",
+                        "~/Scripts/typeahead.bloodhound.js",
+                        "~/Scripts/typeahead.bloodhound.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -24,7 +27,9 @@ namespace TeamProjectIAN6
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/Site.css"));
+                      "~/Content/Site.css",
+                      "~/Content/typeahead.css"));
+
         }
     }
 }

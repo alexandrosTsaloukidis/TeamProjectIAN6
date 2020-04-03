@@ -1,4 +1,4 @@
-﻿@model TeamProjectIAN6.ViewModels.RestaurantFormViewModel
+﻿@model TeamProjectIAN6.ViewModels.BusinessFormViewModel
 
 @{
     ViewBag.Title = "RegisterBusiness";
@@ -11,13 +11,188 @@
 
     <p class="alert alert-info">All fields are <strong>required</strong></p>
     @Html.AntiForgeryToken()
+
     <div class="form-group">
-        @Html.LabelFor(m => m.Vat)
-        @Html.TextBoxFor(m => m.Vat, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Vat)
+        @Html.LabelFor(m => m.VatNumber)
+        @Html.TextBoxFor(m => m.VatNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.VatNumber)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Category) <br />
+        @Html.TextBoxFor(m => m.Category, new { @id = "category", @name = "category", @type = "text", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Category)
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Capacity)
+        @Html.TextBoxFor(m => m.Capacity, new { @class = "form-control", @type = "number", @min = "0" })
+        @Html.ValidationMessageFor(m => m.Capacity)
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.StreetName)
+        @Html.TextBoxFor(m => m.StreetName, new { @id = "street", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.StreetName)
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.StreetNumber)
+        @Html.TextBoxFor(m => m.StreetNumber, new { @id = "streetNumber", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.StreetNumber)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Area) <br />
+        @Html.TextBoxFor(m => m.Area, new { @id = "area", @name = "area", @type = "text", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Area)
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Location) <br />
+        @Html.TextBoxFor(m => m.Location, new { @id = "location", @name = "location", @type = "text", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Location)
+
     </div>
 
 
+    <div class="form-group">
+        @Html.LabelFor(m => m.PostalCode)
+        @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PostalCode)
+    </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
+    <div class="form-group" hidden>
+        @Html.TextBoxFor(m => m.Longitude, new { @id = "lon", @class = "form-control", @type = "number", @readonly = "readonly" })
+    </div>
+
+    <div class="form-group" hidden>
+        @Html.TextBoxFor(m => m.Lattitude, new { @id = "lat", @class = "form-control", @type = "number", @readonly = "readonly"})
+    </div>
+
+
+    <button type="submit" class="btn btn-primary" onmouseover = "getLonLat()">Register Business</button>
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            let viewModel = {
+                categoryIds: []
+            };
+
+            var categories = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/categories?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#category').typeahead({
+                minLength: 1,
+                highlight: true
+            },
+                {
+                    name: 'categories',
+                    display: 'name',
+                    source: categories
+                }).on("typeahead:select", function (c, category) {
+                    viewModel.categoryId = category.id;
+                    console.log(category.id);
+                });
+        });
+
+        $(document).ready(function () {
+            let viewModel = {
+                locationIds: []
+            };
+
+            var locations = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/locations?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#location').typeahead({
+                highlight: true,
+                minLength: 1
+            },
+                {
+                    name: 'locations',
+                    displayKey: 'name',
+                    source: locations
+                }).on("typeahead:select", function (l, location) {
+                    viewModel.locationId = location.id;
+                    console.log(location.id);
+                });
+        });
+
+
+        $(document).ready(function () {
+            let viewModel = {
+                areaIds: []
+            };
+
+            var areas = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/areas?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#area').typeahead({
+                minLength: 1,
+                highlight: true
+            },
+                {
+                    name: 'areas',
+                    display: 'name',
+                    source: areas
+                }).on("typeahead:select", function (a, area) {
+                    viewModel.areaId = area.id;
+                    console.log(area.id);
+                });
+        });
+
+
+
+    </script>
+
+    <script>
+
+       function getLonLat() {
+        let businessAddress = document.getElementById("street").value + " " + document.getElementById("streetNumber").value + " " + document.getElementById("area").value + " " + document.getElementById("location").value;
+            let url = "https://eu1.locationiq.com/v1/search.php?key=8d4acd8fca0bb7&q=" + businessAddress + "&format=json";
+            console.log(url);
+            fetch(url)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    document.getElementById("lat").value = data[0].lat;
+                    document.getElementById("lon").value = data[0].lon;
+                    console.log(lat);
+                    console.log(lon);
+                });
+        }
+    </script>
 }

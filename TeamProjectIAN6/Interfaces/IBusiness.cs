@@ -13,7 +13,7 @@ namespace TeamProjectIAN6.Interfaces
 
         int Capacity { get; set; }
 
-        string Category { get; set; }
+   
 
         int LocationID { get; set; }
 

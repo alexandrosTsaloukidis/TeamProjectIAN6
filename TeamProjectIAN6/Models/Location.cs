@@ -9,7 +9,7 @@ namespace TeamProjectIAN6.Models
     {
         public int ID { get; set; }
   
-        public string Nomos { get; set; }
+        public string Name { get; set; }
 
 
     }

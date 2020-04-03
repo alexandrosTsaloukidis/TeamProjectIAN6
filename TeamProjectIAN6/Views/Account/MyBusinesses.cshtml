@@ -7,6 +7,7 @@
 <h2>My Businesses</h2>
 
 <ul class="businesses">
+    @{int i = 0;}
     @foreach (var business in Model)
     {
         <li>
@@ -19,22 +20,25 @@
                 </span>
                 @if (!@business.IsOpened)
                 {
-                    <button id="buttonClosed" data-business-id="@business.ID" class="btn btn-success btn-sm js-toggle-open" onclick="setButtonStyleWhenClosed('buttonClosed')">Open</button>
+                    <button id="@("Closed"+i)" data-business-id="@business.ID" class="btn btn-success btn-sm js-toggle-open" onclick="setButtonStyleWhenClosed('@("Closed"+i)', @i)">Open</button>
                 }
                 @if (@business.IsOpened)
                 {
-                    <button id="buttonOpened" data-business-id="@business.ID" class="btn btn-danger btn-sm js-toggle-open" onclick="setButtonStyleWhenOpened('buttonOpened')">Close</button>
+                    <button id="@("Opened"+i)" data-business-id="@business.ID" class="btn btn-danger btn-sm js-toggle-open" onclick="setButtonStyleWhenOpened('@("Opened"+i)', @i)">Close</button>
                 }
                 <div class="actions">
-                    <a href="#">Edit</a> |
+                    <a href="@Url.Action("Index", "Restaurant")" target="_blank">Edit</a> |
                     <a href="#" class="js-delete-business" data-business-id="@business.ID">Delete</a>
                 </div>
 
 
             </div>
+
         </li>
+        i++;
     }
 </ul>
+<p>The number of businsses are: <span id="totalNumberOfbusineses">@i</span></p>
 
 @section scripts
 {
@@ -53,39 +57,40 @@
             });
         });
 
-       let count = 0;
-        function setButtonStyleWhenOpened(btn) {
-            
+        let count = new Array(@i).fill(0);
+
+        function setButtonStyleWhenOpened(btn, bsn) {
+
             let property = document.getElementById(btn);
-            if (count == 0) {
-                property.innerHTML = "Open"; 
+            if (count[bsn] == 0) {
+                property.innerHTML = "Open";
                 property.className = "btn btn-success btn-sm js-toggle-open";
                 console.log("open");
-                count = 1;
+                count[bsn] = 1;
             }
             else {
                 property.innerHTML = "Close";
                 property.className = "btn btn-danger btn-sm js-toggle-open";
                 console.log("close");
-                count = 0;
+                count[bsn] = 0;
             }
         }
 
 
-        function setButtonStyleWhenClosed(btn) {
-          
+        function setButtonStyleWhenClosed(btn, bsn) {
+
             let property = document.getElementById(btn);
-            if (count == 0) {
+            if (count[bsn] == 0) {
                 property.innerHTML = "Close";
                 property.className = "btn btn-danger btn-sm js-toggle-open";
-                count = 1;
+                count[bsn] = 1;
                 console.log("close");
             }
             else {
                 property.innerHTML = "Open";
                 property.className = "btn btn-success btn-sm js-toggle-open";
                 console.log("open");
-                count = 0;
+                count[bsn] = 0;
             }
         }
 

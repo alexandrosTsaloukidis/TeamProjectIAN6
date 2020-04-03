@@ -9,13 +9,11 @@ namespace TeamProjectIAN6.Models
 {
     public class RestaurantOwnership
     {
-        [Key]
-        [Column(Order = 1)]
+
+        public int Id { get; set; }
         public string ApplicationUserId { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        public int RestaurantId { get; set; }
+        public int? RestaurantId { get; set; }
         public DateTime StartOwnershipDateTime { get; set; }
         public DateTime? QuitOwnershipDateTime { get; set; }
 

@@ -512,7 +512,7 @@ namespace TeamProjectIAN6.Controllers
         {
             
             var education = context.Educations.SingleOrDefault(e => e.Name == porfileViewModel.Education);
-            if (education == null)
+            if (education == null && !String.IsNullOrEmpty(porfileViewModel.Education) )
             {
                 education = new Education() { Name = porfileViewModel.Education };
                 context.Educations.Add(education);
@@ -529,7 +529,10 @@ namespace TeamProjectIAN6.Controllers
             var userId = User.Identity.GetUserId();
             var userInDb = context.Users.Single(u => u.Id == userId);
             userInDb.Firstname = porfileViewModel.Firstname;
-            userInDb.EducationId = context.Educations.SingleOrDefault(e => e.Name == porfileViewModel.Education).Id;
+            if (!String.IsNullOrEmpty(porfileViewModel.Education))
+                userInDb.EducationId = context.Educations.SingleOrDefault(e => e.Name == porfileViewModel.Education).Id;
+            else 
+                userInDb.EducationId = null;
             context.SaveChanges();
 
             return RedirectToAction("MyProfile");
@@ -541,26 +544,97 @@ namespace TeamProjectIAN6.Controllers
         public ActionResult RegisterBusiness()
         {
 
+            var viewModel = new BusinessFormViewModel
+            {
+                Categories = context.Categories.ToList(),
+                Locations = context.Locations.ToList(),
+                Areas = context.Areas.ToList()
+            };
 
-     
+            return View("RegisterBusiness", viewModel);
 
-            return View();
 
 
         }
 
+  
 
         //POST
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult RegisterBusiness(RestaurantFormViewModel restaurantFormViewModel)
+        public ActionResult RegisterBusiness(BusinessFormViewModel businessFormViewModel)
         {
 
+            if (!ModelState.IsValid)
+            {
+                businessFormViewModel.Categories = context.Categories.ToList();
+                businessFormViewModel.Locations = context.Locations.ToList();
+                businessFormViewModel.Areas = context.Areas.ToList();
+                return View("RegisterBusiness", businessFormViewModel);
+            }
+
+            string userId = User.Identity.GetUserId();
 
 
-            return View();
+            var category = context.Categories.SingleOrDefault(c => c.Name == businessFormViewModel.Category);
+            if (category == null)
+            {
+                category = new Category() { Name = businessFormViewModel.Category };
+                context.Categories.Add(category);
+                context.SaveChanges();
+            }
 
+            var location = context.Locations.SingleOrDefault(l => l.Name == businessFormViewModel.Location) ;
+            if (location == null)
+            {
+                location = new Location() { Name = businessFormViewModel.Location };
+                context.Locations.Add(location);
+                context.SaveChanges();
+            }
+
+
+            var area = context.Areas.SingleOrDefault(a => a.Name == businessFormViewModel.Area);
+            if (area == null)
+            {
+                area = new Area() { Name = businessFormViewModel.Area };
+                context.Areas.Add(area);
+                context.SaveChanges();
+            }
+
+            var restaurant = new Restaurant()
+            {
+                Name = businessFormViewModel.Name,
+                Capacity = businessFormViewModel.Capacity,
+                CategoryID = context.Categories.SingleOrDefault(c => c.Name == businessFormViewModel.Category).Id,
+                AreaID = context.Areas.SingleOrDefault(a => a.Name == businessFormViewModel.Area).Id,
+                LocationID = context.Locations.SingleOrDefault(l => l.Name == businessFormViewModel.Location).ID,
+                StreetName = businessFormViewModel.StreetName,
+                StreetNumber = businessFormViewModel.StreetNumber,
+                Lattitude = businessFormViewModel.Lattitude,
+                Longitude = businessFormViewModel.Longitude,
+                PostalCode = businessFormViewModel.PostalCode
+            };
+
+            context.Restaurants.Add(restaurant);
+            context.SaveChanges();
+            context.RestaurantOwnerships.Add(new RestaurantOwnership()
+            {
+                ApplicationUserId = userId,
+                RestaurantId = restaurant.ID,
+                StartOwnershipDateTime = DateTime.Now
+            });
+
+            context.EventPlaces.Add(new EventPlace() 
+            {
+                RestaurantId = restaurant.ID,
+                Name = restaurant.Name
+            });
+
+            context.SaveChanges();
+
+            return RedirectToAction("MyBusinesses", "Account");
+           
 
         }
 
