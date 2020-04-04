@@ -27,8 +27,15 @@
                     <button id="@("Opened"+i)" data-business-id="@business.ID" class="btn btn-danger btn-sm js-toggle-open" onclick="setButtonStyleWhenOpened('@("Opened"+i)', @i)">Close</button>
                 }
                 <div class="actions">
-                    <a href="@Url.Action("Index", "Restaurant")" target="_blank">Edit</a> |
-                    <a href="#" class="js-delete-business" data-business-id="@business.ID">Delete</a>
+                    <a href="@Url.Action("Edit", "Restaurant", new { id = business.ID })" target="_blank">Edit</a> |
+                    <a href="@Url.Action("DeleteConfirmed", "Restaurant", new { id = business.ID })" class="js-delete-business" data-business-id="@business.ID">Delete</a>
+                    <a href="@Url.Action("FileUpload", "Restaurant", new { enctype = "multipart/form-data"})">
+                        <i class="glyphicon glyphicon-home"></i>
+                        <span class="badge js-notifications-count hide"></span>
+                        <label for="file">Upload Image:</label>
+                        <input type="file" name="file" id="file" style="width: auto;" />
+                        <input type="submit" value="Upload" class="submit" />
+                    </a>
                 </div>
 
 

@@ -4,14 +4,14 @@
     ViewBag.Title = "RegisterBusiness";
 }
 
-<h2>RegisterBusiness</h2>
+<h2>@Model.Heading</h2>
 
-@using (Html.BeginForm("RegisterBusiness", "Account"))
+@using (Html.BeginForm(Model.Action, "Restaurant"))
 {
 
     <p class="alert alert-info">All fields are <strong>required</strong></p>
     @Html.AntiForgeryToken()
-
+    @Html.HiddenFor(m => m.Id)
     <div class="form-group">
         @Html.LabelFor(m => m.VatNumber)
         @Html.TextBoxFor(m => m.VatNumber, new { @class = "form-control" })
@@ -78,11 +78,11 @@
     </div>
 
     <div class="form-group" hidden>
-        @Html.TextBoxFor(m => m.Lattitude, new { @id = "lat", @class = "form-control", @type = "number", @readonly = "readonly"})
+        @Html.TextBoxFor(m => m.Lattitude, new { @id = "lat", @class = "form-control", @type = "number", @readonly = "readonly" })
     </div>
 
 
-    <button type="submit" class="btn btn-primary" onmouseover = "getLonLat()">Register Business</button>
+    <button type="submit" class="btn btn-primary" onmouseover="getLonLat()">Save</button>
 }
 @section scripts
 {
@@ -179,8 +179,8 @@
 
     <script>
 
-       function getLonLat() {
-        let businessAddress = document.getElementById("street").value + " " + document.getElementById("streetNumber").value + " " + document.getElementById("area").value + " " + document.getElementById("location").value;
+        function getLonLat() {
+            let businessAddress = document.getElementById("street").value + " " + document.getElementById("streetNumber").value + " " + document.getElementById("area").value + " " + document.getElementById("location").value;
             let url = "https://eu1.locationiq.com/v1/search.php?key=8d4acd8fca0bb7&q=" + businessAddress + "&format=json";
             console.log(url);
             fetch(url)

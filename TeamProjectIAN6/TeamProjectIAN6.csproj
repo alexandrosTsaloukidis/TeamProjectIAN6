@@ -288,6 +288,14 @@
     <Compile Include="Migrations\202003291420100_RenameingNomosToNameInLocation.Designer.cs">
       <DependentUpon>202003291420100_RenameingNomosToNameInLocation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004041026589_AddingVatColumnToTheRestaurant.cs" />
+    <Compile Include="Migrations\202004041026589_AddingVatColumnToTheRestaurant.Designer.cs">
+      <DependentUpon>202004041026589_AddingVatColumnToTheRestaurant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004041529544_CreatingCapacityPropertiesAndManipulations.cs" />
+    <Compile Include="Migrations\202004041529544_CreatingCapacityPropertiesAndManipulations.Designer.cs">
+      <DependentUpon>202004041529544_CreatingCapacityPropertiesAndManipulations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Area.cs" />
     <Compile Include="Models\Category.cs" />
@@ -395,9 +403,8 @@
     <Content Include="Views\Account\MyVisits.cshtml" />
     <Content Include="Views\Account\MyProfile.cshtml" />
     <Content Include="Views\Account\UserForm.cshtml" />
-    <Content Include="Views\Account\RegisterBusiness.cshtml" />
-    <Content Include="Views\Account\MyBusinesses.cshtml" />
-    <Content Include="Views\Restaurant\Index.cshtml" />
+    <Content Include="Views\Restaurant\RegisterBusiness.cshtml" />
+    <Content Include="Views\Restaurant\MyBusinesses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -481,6 +488,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003291420100_RenameingNomosToNameInLocation.resx">
       <DependentUpon>202003291420100_RenameingNomosToNameInLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004041026589_AddingVatColumnToTheRestaurant.resx">
+      <DependentUpon>202004041026589_AddingVatColumnToTheRestaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004041529544_CreatingCapacityPropertiesAndManipulations.resx">
+      <DependentUpon>202004041529544_CreatingCapacityPropertiesAndManipulations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
