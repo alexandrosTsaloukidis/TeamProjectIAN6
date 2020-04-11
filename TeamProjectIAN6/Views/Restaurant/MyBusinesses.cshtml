@@ -20,22 +20,17 @@
                 </span>
                 @if (!@business.IsOpened)
                 {
-                    <button id="@("Closed"+i)" data-business-id="@business.ID" class="btn btn-success btn-sm js-toggle-open" onclick="setButtonStyleWhenClosed('@("Closed"+i)', @i)">Open</button>
+                    <button id="@i" data-business-id="@business.ID" class="btn btn-success btn-sm js-toggle-open" onclick="setButtonStyleWhenClosed('@i', @i)">Open</button>
                 }
                 @if (@business.IsOpened)
                 {
-                    <button id="@("Opened"+i)" data-business-id="@business.ID" class="btn btn-danger btn-sm js-toggle-open" onclick="setButtonStyleWhenOpened('@("Opened"+i)', @i)">Close</button>
+                    <button id="@i" data-business-id="@business.ID" class="btn btn-danger btn-sm js-toggle-open" onclick="setButtonStyleWhenOpened('@i', @i)">Close</button>
                 }
+                <a href="@Url.Action("EnterTheBusiness", "Restaurant", new { id = business.ID })" class="glyphicon glyphicon-log-in" id="doorToTheStore"></a>
                 <div class="actions">
                     <a href="@Url.Action("Edit", "Restaurant", new { id = business.ID })" target="_blank">Edit</a> |
-                    <a href="@Url.Action("DeleteConfirmed", "Restaurant", new { id = business.ID })" class="js-delete-business" data-business-id="@business.ID">Delete</a>
-                    <a href="@Url.Action("FileUpload", "Restaurant", new { enctype = "multipart/form-data"})">
-                        <i class="glyphicon glyphicon-home"></i>
-                        <span class="badge js-notifications-count hide"></span>
-                        <label for="file">Upload Image:</label>
-                        <input type="file" name="file" id="file" style="width: auto;" />
-                        <input type="submit" value="Upload" class="submit" />
-                    </a>
+                    <a href="#" class="js-delete-business" data-business-id="@business.ID">Delete</a>
+            
                 </div>
 
 
@@ -50,25 +45,13 @@
 @section scripts
 {
     <script>
-        $(document).ready(function () {
-
-            $(".js-toggle-open").click(function (e) {
-                var button = $(e.target);
-                $.post("/api/openings", { restaurantId: button.attr("data-business-id") })
-                    .done(function () {
-
-                    })
-                    .fail(function (response) {
-                        alert("Open failed");
-                    });
-            });
-        });
 
         let count = new Array(@i).fill(0);
 
         function setButtonStyleWhenOpened(btn, bsn) {
 
             let property = document.getElementById(btn);
+
             if (count[bsn] == 0) {
                 property.innerHTML = "Open";
                 property.className = "btn btn-success btn-sm js-toggle-open";
@@ -100,6 +83,69 @@
                 count[bsn] = 0;
             }
         }
+
+
+
+        $(document).ready(function () {
+
+            $(".js-toggle-open").click(function (e) {
+                var button = $(e.target);
+                var buttonId = parseInt(button.attr("id"));
+                bootbox.dialog({
+                    title: 'Confirm Action',
+                    message: '<p>Are you sure you want to prceed the action?</p>',
+                    size: 'large',
+                    onEscape: true,
+                    backdrop: true,
+                    buttons: {
+                        no: {
+                            label: 'No',
+                            className: 'btn-default',
+                            callback: function () {
+                                console.log(button.text());
+                                if (button.text() == "Close") {
+                                    button.text("Open");
+                                    button.removeClass("btn btn-danger btn-sm js-toggle-open").addClass("btn btn-success btn-sm js-toggle-open")
+                                    if (count[buttonId] == 0)
+                                        count[buttonId] = 1
+                                    else 
+                                        count[buttonId] = 0
+                                }
+                                else if (button.text() == "Open") {
+                                    button.text("Close");
+                                    button.removeClass("btn btn-success btn-sm js-toggle-open").addClass("btn btn-danger btn-sm js-toggle-open")
+                                    if (count[buttonId] == 0)
+                                        count[buttonId] = 1
+                                    else
+                                        count[buttonId] = 0
+                                }
+
+                                bootbox.hideAll();
+
+                            }
+                        },
+                        yes: {
+                            label: 'Yes',
+                            className: 'btn-danger',
+                            callback: function () {
+                                boxResult = 'Yes';
+                                $.post("/api/openings", { restaurantId: button.attr("data-business-id") })
+                                    .done(function () {
+
+                                    })
+                                    .fail(function () {
+                                        alert("Open/Close failed");
+                                    });
+                            }
+                        }
+                    }
+                });
+            });
+        });
+
+
+
+
 
     </script>
 }

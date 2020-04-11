@@ -138,3 +138,8 @@ C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProject
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.RenameingNomosToNameInLocation.resources
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingVatColumnToTheRestaurant.resources
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.CreatingCapacityPropertiesAndManipulations.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.RemovingAvAndCurrentCapacity.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingLifeInfo.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingCurrentCapacityToLifeInfo.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingCurrentCapacityToTheRestaurant.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.MakingNullableCurrentCapacity.resources

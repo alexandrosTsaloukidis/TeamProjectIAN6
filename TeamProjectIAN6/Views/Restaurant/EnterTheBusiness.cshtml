@@ -1,0 +1,50 @@
+﻿@model TeamProjectIAN6.ViewModels.WorkingBusinessModelView
+@{
+    ViewBag.Title = "EnterTheBusiness";
+}
+
+<h2>My Business Work Place</h2>
+
+<div class="details">
+    @using (Html.BeginForm("EnterTheBusiness", "Restaurant"))
+    {
+
+
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Capacity)
+            @Html.TextBoxFor(m => m.Capacity, new { @class = "form-control", type="number", min="0", @id = "Capacity" })
+            @Html.ValidationMessageFor(m => m.Capacity)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrenCapacity)
+            @Html.TextBoxFor(m => m.CurrenCapacity, new { @class = "form-control", type = "number", min = "0", @id = "CurrentCapacity", onclick = "capacityUpdater()", onblur= "capacityUpdater()" })
+            @Html.ValidationMessageFor(m => m.CurrenCapacity)
+        </div>
+
+        <button type="submit" class="btn btn-primary" onmouseover="getLonLat()">Save</button>
+    }
+
+    <script>
+
+        function capacityUpdater() {
+        let capacity = document.getElementById("Capacity").value;
+        let currentCapacity = document.getElementById("CurrentCapacity").value;
+            if (parseInt(currentCapacity) >= parseInt(capacity)) {
+            document.getElementById("Capacity").value = document.getElementById("CurrentCapacity").value;
+            }
+            console.log(document.getElementById("Capacity").value)
+            console.log(document.getElementById("CurrentCapacity").value)
+        }
+    </script>
+
+</div>

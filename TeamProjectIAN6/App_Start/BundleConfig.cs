@@ -12,7 +12,9 @@ namespace TeamProjectIAN6
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/typeahead.bundle.js",
                         "~/Scripts/typeahead.bloodhound.js",
-                        "~/Scripts/typeahead.bloodhound.min.js"));
+                        "~/Scripts/typeahead.bloodhound.min.js",
+                        "~/Scripts/bootbox.min.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

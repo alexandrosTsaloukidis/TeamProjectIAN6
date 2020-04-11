@@ -3,28 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TeamProjectIAN6.Models;
 
 namespace TeamProjectIAN6.Controllers
 {
     public class HomeController : Controller
     {
+
+        private ApplicationDbContext context = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Feed");
+            else
+                return RedirectToAction("Cover");
         }
 
-        public ActionResult About()
+        public ActionResult Feed()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Cover()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
+
+        public ActionResult PlacesToGo()
+        {
+            var restaurants = context.Restaurants.Where(r => r.IsOpened).ToList();
+            return View(restaurants);
+
+        }
+
+
     }
 }

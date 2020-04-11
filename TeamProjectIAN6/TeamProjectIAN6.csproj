@@ -296,10 +296,31 @@
     <Compile Include="Migrations\202004041529544_CreatingCapacityPropertiesAndManipulations.Designer.cs">
       <DependentUpon>202004041529544_CreatingCapacityPropertiesAndManipulations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004051910454_RemovingAvAndCurrentCapacity.cs" />
+    <Compile Include="Migrations\202004051910454_RemovingAvAndCurrentCapacity.Designer.cs">
+      <DependentUpon>202004051910454_RemovingAvAndCurrentCapacity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004081837070_AddingLifeInfo.cs" />
+    <Compile Include="Migrations\202004081837070_AddingLifeInfo.Designer.cs">
+      <DependentUpon>202004081837070_AddingLifeInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004081845494_AddingCurrentCapacityToLifeInfo.cs" />
+    <Compile Include="Migrations\202004081845494_AddingCurrentCapacityToLifeInfo.Designer.cs">
+      <DependentUpon>202004081845494_AddingCurrentCapacityToLifeInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004081904379_AddingCurrentCapacityToTheRestaurant.cs" />
+    <Compile Include="Migrations\202004081904379_AddingCurrentCapacityToTheRestaurant.Designer.cs">
+      <DependentUpon>202004081904379_AddingCurrentCapacityToTheRestaurant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004081916151_MakingNullableCurrentCapacity.cs" />
+    <Compile Include="Migrations\202004081916151_MakingNullableCurrentCapacity.Designer.cs">
+      <DependentUpon>202004081916151_MakingNullableCurrentCapacity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Area.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\EventPlace.cs" />
+    <Compile Include="Models\LifeInfo.cs" />
     <Compile Include="Models\Opening.cs" />
     <Compile Include="Models\RestaurantOwnership.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -320,6 +341,7 @@
     <Compile Include="ViewModels\PorfileViewModel.cs" />
     <Compile Include="ViewModels\UserVisitFormViewModel.cs" />
     <Compile Include="ViewModels\ValidVat.cs" />
+    <Compile Include="ViewModels\WorkingBusinessModelView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\TaxService\configuration91.svcinfo" />
@@ -337,8 +359,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\Images\cover.jpg" />
     <Content Include="Scripts\bloodhound.js" />
     <Content Include="Scripts\bloodhound.min.js" />
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Connected Services\TaxService\checkVatService.wsdl" />
@@ -377,8 +402,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -405,6 +428,10 @@
     <Content Include="Views\Account\UserForm.cshtml" />
     <Content Include="Views\Restaurant\RegisterBusiness.cshtml" />
     <Content Include="Views\Restaurant\MyBusinesses.cshtml" />
+    <Content Include="Views\Home\Cover.cshtml" />
+    <Content Include="Views\Home\Feed.cshtml" />
+    <Content Include="Views\Home\PlacesToGo.cshtml" />
+    <Content Include="Views\Restaurant\EnterTheBusiness.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -494,6 +521,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004041529544_CreatingCapacityPropertiesAndManipulations.resx">
       <DependentUpon>202004041529544_CreatingCapacityPropertiesAndManipulations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004051910454_RemovingAvAndCurrentCapacity.resx">
+      <DependentUpon>202004051910454_RemovingAvAndCurrentCapacity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004081837070_AddingLifeInfo.resx">
+      <DependentUpon>202004081837070_AddingLifeInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004081845494_AddingCurrentCapacityToLifeInfo.resx">
+      <DependentUpon>202004081845494_AddingCurrentCapacityToLifeInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004081904379_AddingCurrentCapacityToTheRestaurant.resx">
+      <DependentUpon>202004081904379_AddingCurrentCapacityToTheRestaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004081916151_MakingNullableCurrentCapacity.resx">
+      <DependentUpon>202004081916151_MakingNullableCurrentCapacity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

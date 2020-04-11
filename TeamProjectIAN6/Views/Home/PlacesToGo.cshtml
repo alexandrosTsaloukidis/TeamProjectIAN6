@@ -1,0 +1,25 @@
+﻿@model IEnumerable<TeamProjectIAN6.Models.Restaurant>
+
+@{
+    ViewBag.Title = "PlacesToGo";
+}
+
+<h2>Places To Go</h2>
+<ul class="placesToGo">
+    @foreach (var business in Model)
+    {
+        <li>
+            <div>
+                <span>
+                    @business.Name
+                </span>
+
+                <span>
+                    @business.CurrentCapacity
+                </span>
+            </div>
+        </li>
+
+    }
+
+</ul>

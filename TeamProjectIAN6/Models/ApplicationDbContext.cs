@@ -24,6 +24,8 @@ namespace TeamProjectIAN6.Models
 
         public DbSet<Opening> Openings { get; set; }
 
+        public DbSet<LifeInfo> LifeInfos { get; set; }
+
         public DbSet<RestaurantOwnership> RestaurantOwnerships { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<EventPlace> EventPlaces { get; set; }

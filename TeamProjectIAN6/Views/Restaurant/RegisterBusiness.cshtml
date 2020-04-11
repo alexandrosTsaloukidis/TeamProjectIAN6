@@ -190,8 +190,8 @@
                 .then((data) => {
                     document.getElementById("lat").value = data[0].lat;
                     document.getElementById("lon").value = data[0].lon;
-                    console.log(lat);
-                    console.log(lon);
+                    console.log(data[0].lat);
+                    console.log(data[0].lon);
                 });
         }
     </script>

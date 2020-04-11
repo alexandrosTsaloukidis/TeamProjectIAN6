@@ -14,53 +14,61 @@ namespace TeamProjectIAN6.Controllers
     {
         private ApplicationDbContext context = new ApplicationDbContext();
 
-
-
-        //nikos
-        // GET: /Account/Delete/5
-        public ActionResult Delete(int? id)
+        //GET
+        [Authorize]
+        public ActionResult EnterTheBusiness(int id)
         {
-            if (id == null)
+            string userId = User.Identity.GetUserId();
+            var business = context.RestaurantOwnerships.Where(ro => ro.ApplicationUserId == userId && ro.RestaurantId == id)
+                                                       .Select(ro=>ro.Restaurant)
+                                                       .FirstOrDefault();
+
+            var viewModel = new WorkingBusinessModelView()
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Restaurant restaurant = context.Restaurants.Find(id);
-            if (restaurant == null)
-            {
-                return HttpNotFound();
-            }
-            return View(restaurant);
+
+       
+                Name = business.Name,
+                Capacity = business.Capacity,
+                Category = context.Categories.SingleOrDefault(c => c.Id == business.CategoryID).Name,
+                Area = context.Areas.SingleOrDefault(a => a.Id == business.AreaID).Name,
+                Location = context.Locations.SingleOrDefault(l => l.ID == business.LocationID).Name,
+                StreetName = business.StreetName,
+                StreetNumber = business.StreetNumber,
+                Lattitude = business.Lattitude,
+                Longitude = business.Longitude,
+                PostalCode = business.PostalCode,
+                CurrenCapacity = business.CurrentCapacity
+            };
+
+            return View("EnterTheBusiness", viewModel);
         }
 
-        // POST: /Account/Delete/5
-        [HttpPost, ActionName("Delete")]
+
+        //POST
+        [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult EnterTheBusiness(WorkingBusinessModelView viewModel)
         {
-            Restaurant restaurant = context.Restaurants.Find(id);
-            context.Restaurants.Remove(restaurant);
+            var userId = User.Identity.GetUserId();
+            var restaurant = context.RestaurantOwnerships
+                .Where(r => r.RestaurantId == viewModel.Id && r.ApplicationUserId == userId)
+                .Select(r => r.Restaurant).SingleOrDefault()
+                ;
+            if (restaurant.Capacity < viewModel.Capacity)
+                restaurant.Capacity = viewModel.Capacity;
+            restaurant.CurrentCapacity = viewModel.CurrenCapacity;
             context.SaveChanges();
-            return RedirectToAction("MyBusinesses", "Restaurant");
-        }
-        //nikos
-
-
-        //nikos
-        public ActionResult FileUpload(HttpPostedFileBase file)
-        {
-            if (file != null)
+            LifeInfo lifeInfo = new LifeInfo()
             {
-                // upload a file
-                string pic = System.IO.Path.GetFileName(file.FileName);
-                string path = System.IO.Path.Combine(
-                                        Server.MapPath("~/images/business"), pic);
-                // save image path to the database
-                file.SaveAs(path);
-            }
-            return RedirectToAction("MyBusinesses", "Restaurant");
+                RestaurantID = viewModel.Id,
+                CurrentCapacity = viewModel.CurrenCapacity,
+                DateTimeSaved = DateTime.Now
+            };
+            context.LifeInfos.Add(lifeInfo);
+            context.SaveChanges();
+            return View("EnterTheBusiness", viewModel);
         }
-        //nikos
-
 
         //GET
         [Authorize]
@@ -196,6 +204,7 @@ namespace TeamProjectIAN6.Controllers
                 Locations = context.Locations.ToList(),
                 Areas = context.Areas.ToList(),
                 Id = restaurant.ID,
+                VatNumber = restaurant.Vat,
                 Name = restaurant.Name,
                 Capacity = restaurant.Capacity,
                 Category = context.Categories.SingleOrDefault(c => c.Id == restaurant.CategoryID).Name,
