@@ -143,3 +143,5 @@ C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProject
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingCurrentCapacityToLifeInfo.resources
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingCurrentCapacityToTheRestaurant.resources
 C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.MakingNullableCurrentCapacity.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingDeleteFunctionalityToRestaurant.resources
+C:\Users\alex\source\repos\TeamProjectIAN6\TeamProjectIAN6\obj\Debug\TeamProjectIAN6.Migrations.AddingRelativeAndAbsoluteCapacities.resources

@@ -5,21 +5,80 @@
 }
 
 <h2>Places To Go</h2>
-<ul class="placesToGo">
-    @foreach (var business in Model)
-    {
-        <li>
-            <div>
-                <span>
-                    @business.Name
-                </span>
 
-                <span>
-                    @business.CurrentCapacity
-                </span>
-            </div>
-        </li>
+<table id="restaurants" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Street Name</th>
+            <th>Street Number</th>
+            <th>Area</th>
+            <th>Location</th>
+            <th>Capacity</th>
+            <th>Current Capacity</th>
+            <th>Absolute Capacity</th>
+            <th>Relative Capacity</th>
 
-    }
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-</ul>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#restaurants").DataTable({
+                ajax: {
+                    url: "/api/restaurants",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        className: "left",
+                        render: function (data, type, full, meta) {
+                            return full.name + full.streetName;
+                        }
+
+                    },
+                    {
+                        data: "category.name"
+                    },
+                    {
+                        data: "streetName"
+
+                    },
+                    {
+                        data: "streetNumber"
+                    },
+
+                    {
+                        data: "area.name"
+                    },
+
+                    {
+                        data: "location.name"
+                    },
+
+                    {
+                        data: "capacity"
+                    },
+
+                    {
+                        data: "currentCapacity"
+                    },
+                    {
+                        data: "absoluteCapacity"
+                    },
+
+                    {
+                        data: "relativeCapacity"
+                    }
+
+                ]
+            });
+        });
+    </script>
+}

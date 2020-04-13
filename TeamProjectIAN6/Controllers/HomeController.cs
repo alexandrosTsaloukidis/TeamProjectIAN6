@@ -29,6 +29,8 @@ namespace TeamProjectIAN6.Controllers
             return View();
         }
 
+
+        [Authorize]
         public ActionResult PlacesToGo()
         {
             var restaurants = context.Restaurants.Where(r => r.IsOpened).ToList();

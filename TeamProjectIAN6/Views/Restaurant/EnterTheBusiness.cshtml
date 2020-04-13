@@ -2,8 +2,21 @@
 @{
     ViewBag.Title = "EnterTheBusiness";
 }
+@Scripts.Render("~/bundles/jquery")
 
-<h2>My Business Work Place</h2>
+
+<h2>
+    <span>@Model.Name</span>
+    <a href="@Url.Action("MyBusinesses", "Restaurant", new { id = @Model.Id })" class="glyphicon glyphicon-log-out" id="doorToExitTheStore"></a>
+    @if (!@Model.IsOpened)
+    {
+        <button id="closed" data-business-id="@Model.Id" class="btn btn-success btn-sm js-toggle-open" onclick="setButtonStyleWhenClosed('closed')">Open</button>
+    }
+    @if (@Model.IsOpened)
+    {
+        <button id="opened" data-business-id="@Model.Id" class="btn btn-danger btn-sm js-toggle-open" onclick="setButtonStyleWhenOpened('opened')">Close</button>
+    }
+</h2>
 
 <div class="details">
     @using (Html.BeginForm("EnterTheBusiness", "Restaurant"))
@@ -14,37 +27,151 @@
         @Html.HiddenFor(m => m.Id)
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Name)
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Name)
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(m => m.Capacity)
-            @Html.TextBoxFor(m => m.Capacity, new { @class = "form-control", type="number", min="0", @id = "Capacity" })
+            @Html.TextBoxFor(m => m.Capacity, new { @class = "form-control", type = "number", min = "0", @id = "Capacity" })
             @Html.ValidationMessageFor(m => m.Capacity)
         </div>
 
         <div class="form-group">
             @Html.LabelFor(m => m.CurrenCapacity)
-            @Html.TextBoxFor(m => m.CurrenCapacity, new { @class = "form-control", type = "number", min = "0", @id = "CurrentCapacity", onclick = "capacityUpdater()", onblur= "capacityUpdater()" })
+            @Html.TextBoxFor(m => m.CurrenCapacity, new { @class = "form-control", type = "number", min = "0", @id = "CurrentCapacity", onclick = "capacityUpdater()", onblur = "capacityUpdater()" })
             @Html.ValidationMessageFor(m => m.CurrenCapacity)
         </div>
 
-        <button type="submit" class="btn btn-primary" onmouseover="getLonLat()">Save</button>
+        <button type="submit" class="btn btn-primary" onclick="getConfirmBox()">Save</button>
     }
 
     <script>
 
         function capacityUpdater() {
-        let capacity = document.getElementById("Capacity").value;
-        let currentCapacity = document.getElementById("CurrentCapacity").value;
+            let capacity = document.getElementById("Capacity").value;
+            let currentCapacity = document.getElementById("CurrentCapacity").value;
             if (parseInt(currentCapacity) >= parseInt(capacity)) {
-            document.getElementById("Capacity").value = document.getElementById("CurrentCapacity").value;
+                document.getElementById("Capacity").value = document.getElementById("CurrentCapacity").value;
             }
             console.log(document.getElementById("Capacity").value)
             console.log(document.getElementById("CurrentCapacity").value)
         }
+
+
+
+        let countIn = 0;
+
+        function setButtonStyleWhenOpened(btn) {
+
+            let property = document.getElementById(btn);
+
+            if (countIn == 0) {
+                property.innerHTML = "Open";
+                property.className = "btn btn-success btn-sm js-toggle-open";
+                console.log("open");
+                countIn = 1;
+            }
+            else {
+                property.innerHTML = "Close";
+                property.className = "btn btn-danger btn-sm js-toggle-open";
+                console.log("close");
+                countIn = 0;
+            }
+        }
+
+
+        function setButtonStyleWhenClosed(btn) {
+
+            let property = document.getElementById(btn);
+            if (countIn == 0) {
+                property.innerHTML = "Close";
+                property.className = "btn btn-danger btn-sm js-toggle-open";
+                countIn = 1;
+                console.log("close");
+            }
+            else {
+                property.innerHTML = "Open";
+                property.className = "btn btn-success btn-sm js-toggle-open";
+                console.log("open");
+                countIn = 0;
+            }
+        }
+
+
+
+        $(document).ready(function () {
+
+            $(".js-toggle-open").click(function (e) {
+                var button = $(e.target);
+                let msg = '';
+                let confirmClass = '';
+                if (button.text() == "Close") {
+                    msg = '<p> Are you sure you want to open this business ?</p>';
+                    confirmClass = 'btn-success';
+                }
+
+                else {
+
+                    msg = '<p> Are you sure you want to close this business ?</p>';
+                    confirmClass = 'btn-danger';
+                }
+
+                bootbox.dialog({
+                    title: 'Confirm Action',
+                    message: msg,
+                    size: 'large',
+                    onEscape: true,
+                    backdrop: true,
+                    buttons: {
+                        no: {
+                            label: 'No',
+                            className: 'btn-default',
+                            callback: function () {
+                                console.log(button.text());
+                                if (button.text() == "Close") {
+                                    button.text("Open");
+                                    button.removeClass("btn btn-danger btn-sm js-toggle-open").addClass("btn btn-success btn-sm js-toggle-open")
+                                    if (countIn == 0)
+                                        countIn = 1
+                                    else
+                                        ccountIn = 0
+                                }
+                                else if (button.text() == "Open") {
+                                    button.text("Close");
+                                    button.removeClass("btn btn-success btn-sm js-toggle-open").addClass("btn btn-danger btn-sm js-toggle-open")
+                                    if (countIn == 0)
+                                        countIn = 1
+                                    else
+                                        countIn = 0
+                                }
+
+                                bootbox.hideAll();
+
+                            }
+                        },
+                        yes: {
+                            label: 'Yes',
+                            className: confirmClass,
+                            callback: function () {
+                                boxResult = 'Yes';
+                                $.post("/api/openings", { restaurantId: button.attr("data-business-id") })
+                                    .done(function () {
+
+                                    })
+                                    .fail(function () {
+                                        alert("Open/Close failed");
+                                    });
+                            }
+                        }
+                    }
+                });
+            });
+        });
+
+        function getConfirmBox() {
+
+            alert("The changes have been successfully saved!")
+        }
+
+       
+
     </script>
 
 </div>
+

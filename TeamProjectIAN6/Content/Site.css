@@ -58,7 +58,23 @@ textarea {
     padding-left: 5px;
 }
 
+
+#doorToExitTheStore {
+    text-decoration: none;
+    color: black;
+    padding-left: 20px;
+}
+
+
 .placesToGo {
     list-style: none;
 }
 
+#closed {
+    margin-left: 20px;
+}
+
+
+#opened {
+    margin-left: 20px;
+}

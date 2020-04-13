@@ -26,7 +26,7 @@ namespace TeamProjectIAN6.Controllers
             var viewModel = new WorkingBusinessModelView()
             {
 
-       
+                Id = business.ID,
                 Name = business.Name,
                 Capacity = business.Capacity,
                 Category = context.Categories.SingleOrDefault(c => c.Id == business.CategoryID).Name,
@@ -37,7 +37,8 @@ namespace TeamProjectIAN6.Controllers
                 Lattitude = business.Lattitude,
                 Longitude = business.Longitude,
                 PostalCode = business.PostalCode,
-                CurrenCapacity = business.CurrentCapacity
+                CurrenCapacity = business.CurrentCapacity,
+                IsOpened = business.IsOpened
             };
 
             return View("EnterTheBusiness", viewModel);
@@ -55,6 +56,10 @@ namespace TeamProjectIAN6.Controllers
                 .Where(r => r.RestaurantId == viewModel.Id && r.ApplicationUserId == userId)
                 .Select(r => r.Restaurant).SingleOrDefault()
                 ;
+
+            viewModel.Name = restaurant.Name;
+            viewModel.IsOpened = restaurant.IsOpened;
+
             if (restaurant.Capacity < viewModel.Capacity)
                 restaurant.Capacity = viewModel.Capacity;
             restaurant.CurrentCapacity = viewModel.CurrenCapacity;
@@ -181,7 +186,7 @@ namespace TeamProjectIAN6.Controllers
             var userId = User.Identity.GetUserId();
             var businesses = context.RestaurantOwnerships
                                .Where(ro => ro.ApplicationUserId == userId)
-                               .Select(ro => ro.Restaurant).ToList()
+                               .Select(ro => ro.Restaurant).Where(r => !r.IsDeleted);
                                ;
             return View(businesses);
         }

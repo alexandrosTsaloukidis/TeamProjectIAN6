@@ -17,6 +17,30 @@ namespace TeamProjectIAN6.Models
         public int? CurrentCapacity { get; set; }
         public int? CategoryID { get; set; }
 
+        public double? RelativeCapacity 
+        { 
+            get
+            {
+                if (CurrentCapacity != null)
+                    return Math.Round((double)CurrentCapacity / Capacity);
+                else
+                    return null;
+            }
+            
+        }
+
+        public int? AbsoluteCapacity
+        {
+            get
+            {
+                if (CurrentCapacity != null)
+                    return Capacity - CurrentCapacity;
+                else
+                    return null; 
+            }
+
+        }
+
         [ValidVat]
         public string Vat { get; set; }
 
@@ -34,6 +58,7 @@ namespace TeamProjectIAN6.Models
         public double PostalCode { get; set; }
         public bool IsOpened { get; set; }
 
+        public bool IsDeleted { get; set; }
         public void Open()
         {
             IsOpened = true;
@@ -44,6 +69,11 @@ namespace TeamProjectIAN6.Models
             IsOpened = false;
         }
 
+        public void Delete()
+        {
+            IsDeleted = true;
+            IsOpened = false;
+        }
         public int? AreaID { get; set; }
         public Area Area { get; set; }
         //public Image ProfilePic { get; set; }
