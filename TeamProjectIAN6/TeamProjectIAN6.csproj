@@ -48,7 +48,31 @@
     <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Conventions.3.3.0\lib\net45\Ninject.Extensions.Conventions.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Factory, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Factory.3.3.2\lib\net45\Ninject.Extensions.Factory.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.3.0\lib\net45\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.WebHost.3.3.0\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.WebApi, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.WebApi.3.3.0\lib\net45\Ninject.Web.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -116,6 +140,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -179,6 +206,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\OrganizationProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -195,162 +223,209 @@
     <Compile Include="Controllers\api\LocationsController.cs" />
     <Compile Include="Controllers\api\OpeningsController.cs" />
     <Compile Include="Controllers\api\RestaurantsController.cs" />
+    <Compile Include="Controllers\api\SearchResultsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
-    <Compile Include="Dtos\AreaDto.cs" />
-    <Compile Include="Dtos\CategoryDto.cs" />
-    <Compile Include="Dtos\EducationDto.cs" />
-    <Compile Include="Dtos\LocationDto.cs" />
-    <Compile Include="Dtos\OccupationDto.cs" />
-    <Compile Include="Dtos\OpeningDto.cs" />
-    <Compile Include="Dtos\RestaurantDto.cs" />
+    <Compile Include="Core\Dtos\AreaDto.cs" />
+    <Compile Include="Core\Dtos\CategoryDto.cs" />
+    <Compile Include="Core\Dtos\EducationDto.cs" />
+    <Compile Include="Core\Dtos\LocationDto.cs" />
+    <Compile Include="Core\Dtos\OccupationDto.cs" />
+    <Compile Include="Core\Dtos\OpeningDto.cs" />
+    <Compile Include="Core\Dtos\RestaurantDto.cs" />
+    <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Repositories\ILifeInfoRepository.cs" />
+    <Compile Include="Core\ViewModels\SearchViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IBusiness.cs" />
-    <Compile Include="Migrations\202003221907242_Initial.cs" />
-    <Compile Include="Migrations\202003221907242_Initial.Designer.cs">
+    <Compile Include="Migrations\202004202024068_dummy.cs" />
+    <Compile Include="Migrations\202004202024068_dummy.Designer.cs">
+      <DependentUpon>202004202024068_dummy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004210634077_AddingProfAndLogoImages.cs" />
+    <Compile Include="Migrations\202004210634077_AddingProfAndLogoImages.Designer.cs">
+      <DependentUpon>202004210634077_AddingProfAndLogoImages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004210812528_deletingimages.cs" />
+    <Compile Include="Migrations\202004210812528_deletingimages.Designer.cs">
+      <DependentUpon>202004210812528_deletingimages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004210814488_newtypeimages.cs" />
+    <Compile Include="Migrations\202004210814488_newtypeimages.Designer.cs">
+      <DependentUpon>202004210814488_newtypeimages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004210821131_deletingagain.cs" />
+    <Compile Include="Migrations\202004210821131_deletingagain.Designer.cs">
+      <DependentUpon>202004210821131_deletingagain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004210822322_addingphotofeild.cs" />
+    <Compile Include="Migrations\202004210822322_addingphotofeild.Designer.cs">
+      <DependentUpon>202004210822322_addingphotofeild.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004211035074_addingLogoToRestaurant.cs" />
+    <Compile Include="Migrations\202004211035074_addingLogoToRestaurant.Designer.cs">
+      <DependentUpon>202004211035074_addingLogoToRestaurant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Repositories\AreaRepository.cs" />
+    <Compile Include="Persistence\Repositories\CategoryRepository.cs" />
+    <Compile Include="Core\Repositories\ICategoryRepository.cs" />
+    <Compile Include="Core\Repositories\IAreaRepository.cs" />
+    <Compile Include="Core\Repositories\ILocationRepository.cs" />
+    <Compile Include="Core\Repositories\IRestaurantOwnershipRepository.cs" />
+    <Compile Include="Persistence\Repositories\EventPlaceRepository.cs" />
+    <Compile Include="Core\Repositories\IEventPlaceRepository.cs" />
+    <Compile Include="Persistence\Repositories\LifeInfoRepository.cs" />
+    <Compile Include="Persistence\Migrations\202003221907242_Initial.cs" />
+    <Compile Include="Persistence\Migrations\202003221907242_Initial.Designer.cs">
       <DependentUpon>202003221907242_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003221910537_AddingUsersLocationsAndAreas.cs" />
-    <Compile Include="Migrations\202003221910537_AddingUsersLocationsAndAreas.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003221910537_AddingUsersLocationsAndAreas.cs" />
+    <Compile Include="Persistence\Migrations\202003221910537_AddingUsersLocationsAndAreas.Designer.cs">
       <DependentUpon>202003221910537_AddingUsersLocationsAndAreas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003221915150_AddingRestaurants.cs" />
-    <Compile Include="Migrations\202003221915150_AddingRestaurants.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003221915150_AddingRestaurants.cs" />
+    <Compile Include="Persistence\Migrations\202003221915150_AddingRestaurants.Designer.cs">
       <DependentUpon>202003221915150_AddingRestaurants.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003221922589_AddingVisits.cs" />
-    <Compile Include="Migrations\202003221922589_AddingVisits.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003221922589_AddingVisits.cs" />
+    <Compile Include="Persistence\Migrations\202003221922589_AddingVisits.Designer.cs">
       <DependentUpon>202003221922589_AddingVisits.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003221924343_AddingEducationAndOccupation.cs" />
-    <Compile Include="Migrations\202003221924343_AddingEducationAndOccupation.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003221924343_AddingEducationAndOccupation.cs" />
+    <Compile Include="Persistence\Migrations\202003221924343_AddingEducationAndOccupation.Designer.cs">
       <DependentUpon>202003221924343_AddingEducationAndOccupation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003221925368_AssigningEducationAndOccupationToAUser.cs" />
-    <Compile Include="Migrations\202003221925368_AssigningEducationAndOccupationToAUser.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003221925368_AssigningEducationAndOccupationToAUser.cs" />
+    <Compile Include="Persistence\Migrations\202003221925368_AssigningEducationAndOccupationToAUser.Designer.cs">
       <DependentUpon>202003221925368_AssigningEducationAndOccupationToAUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003221926499_GivingAResaturantOwnershipToAnUser.cs" />
-    <Compile Include="Migrations\202003221926499_GivingAResaturantOwnershipToAnUser.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003221926499_GivingAResaturantOwnershipToAnUser.cs" />
+    <Compile Include="Persistence\Migrations\202003221926499_GivingAResaturantOwnershipToAnUser.Designer.cs">
       <DependentUpon>202003221926499_GivingAResaturantOwnershipToAnUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003230719468_AddingAnotherOwnerToAnotherRestaurant.cs" />
-    <Compile Include="Migrations\202003230719468_AddingAnotherOwnerToAnotherRestaurant.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003230719468_AddingAnotherOwnerToAnotherRestaurant.cs" />
+    <Compile Include="Persistence\Migrations\202003230719468_AddingAnotherOwnerToAnotherRestaurant.Designer.cs">
       <DependentUpon>202003230719468_AddingAnotherOwnerToAnotherRestaurant.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003251152290_AddingOpenings.cs" />
-    <Compile Include="Migrations\202003251152290_AddingOpenings.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003251152290_AddingOpenings.cs" />
+    <Compile Include="Persistence\Migrations\202003251152290_AddingOpenings.Designer.cs">
       <DependentUpon>202003251152290_AddingOpenings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.cs" />
-    <Compile Include="Migrations\202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.cs" />
+    <Compile Include="Persistence\Migrations\202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.Designer.cs">
       <DependentUpon>202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003251330053_AddingUserCloserToOPneing.cs" />
-    <Compile Include="Migrations\202003251330053_AddingUserCloserToOPneing.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003251330053_AddingUserCloserToOPneing.cs" />
+    <Compile Include="Persistence\Migrations\202003251330053_AddingUserCloserToOPneing.Designer.cs">
       <DependentUpon>202003251330053_AddingUserCloserToOPneing.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003251356201_test.cs" />
-    <Compile Include="Migrations\202003251356201_test.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003251356201_test.cs" />
+    <Compile Include="Persistence\Migrations\202003251356201_test.Designer.cs">
       <DependentUpon>202003251356201_test.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003251402365_deletingopenings.cs" />
-    <Compile Include="Migrations\202003251402365_deletingopenings.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003251402365_deletingopenings.cs" />
+    <Compile Include="Persistence\Migrations\202003251402365_deletingopenings.Designer.cs">
       <DependentUpon>202003251402365_deletingopenings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003251412453_addingOpening.cs" />
-    <Compile Include="Migrations\202003251412453_addingOpening.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003251412453_addingOpening.cs" />
+    <Compile Include="Persistence\Migrations\202003251412453_addingOpening.Designer.cs">
       <DependentUpon>202003251412453_addingOpening.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003261917423_MakingOpeningOptional.cs" />
-    <Compile Include="Migrations\202003261917423_MakingOpeningOptional.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003261917423_MakingOpeningOptional.cs" />
+    <Compile Include="Persistence\Migrations\202003261917423_MakingOpeningOptional.Designer.cs">
       <DependentUpon>202003261917423_MakingOpeningOptional.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003262033247_IncludingCategoryAsClass.cs" />
-    <Compile Include="Migrations\202003262033247_IncludingCategoryAsClass.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003262033247_IncludingCategoryAsClass.cs" />
+    <Compile Include="Persistence\Migrations\202003262033247_IncludingCategoryAsClass.Designer.cs">
       <DependentUpon>202003262033247_IncludingCategoryAsClass.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003272044464_MakingRestaurantOwnrshipsLessStrict.cs" />
-    <Compile Include="Migrations\202003272044464_MakingRestaurantOwnrshipsLessStrict.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003272044464_MakingRestaurantOwnrshipsLessStrict.cs" />
+    <Compile Include="Persistence\Migrations\202003272044464_MakingRestaurantOwnrshipsLessStrict.Designer.cs">
       <DependentUpon>202003272044464_MakingRestaurantOwnrshipsLessStrict.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003272051143_makingrestaurantidlessstrictinownerships.cs" />
-    <Compile Include="Migrations\202003272051143_makingrestaurantidlessstrictinownerships.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003272051143_makingrestaurantidlessstrictinownerships.cs" />
+    <Compile Include="Persistence\Migrations\202003272051143_makingrestaurantidlessstrictinownerships.Designer.cs">
       <DependentUpon>202003272051143_makingrestaurantidlessstrictinownerships.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003282159182_AddingEventPlace.cs" />
-    <Compile Include="Migrations\202003282159182_AddingEventPlace.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003282159182_AddingEventPlace.cs" />
+    <Compile Include="Persistence\Migrations\202003282159182_AddingEventPlace.Designer.cs">
       <DependentUpon>202003282159182_AddingEventPlace.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003291420100_RenameingNomosToNameInLocation.cs" />
-    <Compile Include="Migrations\202003291420100_RenameingNomosToNameInLocation.Designer.cs">
+    <Compile Include="Persistence\Migrations\202003291420100_RenameingNomosToNameInLocation.cs" />
+    <Compile Include="Persistence\Migrations\202003291420100_RenameingNomosToNameInLocation.Designer.cs">
       <DependentUpon>202003291420100_RenameingNomosToNameInLocation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004041026589_AddingVatColumnToTheRestaurant.cs" />
-    <Compile Include="Migrations\202004041026589_AddingVatColumnToTheRestaurant.Designer.cs">
+    <Compile Include="Persistence\Migrations\202004041026589_AddingVatColumnToTheRestaurant.cs" />
+    <Compile Include="Persistence\Migrations\202004041026589_AddingVatColumnToTheRestaurant.Designer.cs">
       <DependentUpon>202004041026589_AddingVatColumnToTheRestaurant.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004041529544_CreatingCapacityPropertiesAndManipulations.cs" />
-    <Compile Include="Migrations\202004041529544_CreatingCapacityPropertiesAndManipulations.Designer.cs">
+    <Compile Include="Persistence\Migrations\202004041529544_CreatingCapacityPropertiesAndManipulations.cs" />
+    <Compile Include="Persistence\Migrations\202004041529544_CreatingCapacityPropertiesAndManipulations.Designer.cs">
       <DependentUpon>202004041529544_CreatingCapacityPropertiesAndManipulations.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004051910454_RemovingAvAndCurrentCapacity.cs" />
-    <Compile Include="Migrations\202004051910454_RemovingAvAndCurrentCapacity.Designer.cs">
+    <Compile Include="Persistence\Migrations\202004051910454_RemovingAvAndCurrentCapacity.cs" />
+    <Compile Include="Persistence\Migrations\202004051910454_RemovingAvAndCurrentCapacity.Designer.cs">
       <DependentUpon>202004051910454_RemovingAvAndCurrentCapacity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004081837070_AddingLifeInfo.cs" />
-    <Compile Include="Migrations\202004081837070_AddingLifeInfo.Designer.cs">
+    <Compile Include="Persistence\Migrations\202004081837070_AddingLifeInfo.cs" />
+    <Compile Include="Persistence\Migrations\202004081837070_AddingLifeInfo.Designer.cs">
       <DependentUpon>202004081837070_AddingLifeInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004081845494_AddingCurrentCapacityToLifeInfo.cs" />
-    <Compile Include="Migrations\202004081845494_AddingCurrentCapacityToLifeInfo.Designer.cs">
+    <Compile Include="Persistence\Migrations\202004081845494_AddingCurrentCapacityToLifeInfo.cs" />
+    <Compile Include="Persistence\Migrations\202004081845494_AddingCurrentCapacityToLifeInfo.Designer.cs">
       <DependentUpon>202004081845494_AddingCurrentCapacityToLifeInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004081904379_AddingCurrentCapacityToTheRestaurant.cs" />
-    <Compile Include="Migrations\202004081904379_AddingCurrentCapacityToTheRestaurant.Designer.cs">
+    <Compile Include="Persistence\Migrations\202004081904379_AddingCurrentCapacityToTheRestaurant.cs" />
+    <Compile Include="Persistence\Migrations\202004081904379_AddingCurrentCapacityToTheRestaurant.Designer.cs">
       <DependentUpon>202004081904379_AddingCurrentCapacityToTheRestaurant.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004081916151_MakingNullableCurrentCapacity.cs" />
-    <Compile Include="Migrations\202004081916151_MakingNullableCurrentCapacity.Designer.cs">
+    <Compile Include="Persistence\Migrations\202004081916151_MakingNullableCurrentCapacity.cs" />
+    <Compile Include="Persistence\Migrations\202004081916151_MakingNullableCurrentCapacity.Designer.cs">
       <DependentUpon>202004081916151_MakingNullableCurrentCapacity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004111933066_AddingDeleteFunctionalityToRestaurant.cs" />
-    <Compile Include="Migrations\202004111933066_AddingDeleteFunctionalityToRestaurant.Designer.cs">
+    <Compile Include="Persistence\Migrations\202004111933066_AddingDeleteFunctionalityToRestaurant.cs" />
+    <Compile Include="Persistence\Migrations\202004111933066_AddingDeleteFunctionalityToRestaurant.Designer.cs">
       <DependentUpon>202004111933066_AddingDeleteFunctionalityToRestaurant.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004130634541_AddingRelativeAndAbsoluteCapacities.cs" />
-    <Compile Include="Migrations\202004130634541_AddingRelativeAndAbsoluteCapacities.Designer.cs">
+    <Compile Include="Persistence\Migrations\202004130634541_AddingRelativeAndAbsoluteCapacities.cs" />
+    <Compile Include="Persistence\Migrations\202004130634541_AddingRelativeAndAbsoluteCapacities.Designer.cs">
       <DependentUpon>202004130634541_AddingRelativeAndAbsoluteCapacities.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Area.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\EventPlace.cs" />
-    <Compile Include="Models\LifeInfo.cs" />
-    <Compile Include="Models\Opening.cs" />
-    <Compile Include="Models\RestaurantOwnership.cs" />
-    <Compile Include="ViewModels\AccountViewModels.cs" />
-    <Compile Include="Models\AdultUser.cs" />
-    <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\Education.cs" />
-    <Compile Include="Models\Gender.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Occupation.cs" />
-    <Compile Include="Models\Parking.cs" />
-    <Compile Include="Models\Restaurant.cs" />
-    <Compile Include="Models\Visit.cs" />
+    <Compile Include="Persistence\Migrations\Configuration.cs" />
+    <Compile Include="Core\Models\Area.cs" />
+    <Compile Include="Core\Models\Category.cs" />
+    <Compile Include="Core\Models\EventPlace.cs" />
+    <Compile Include="Core\Models\LifeInfo.cs" />
+    <Compile Include="Core\Models\Opening.cs" />
+    <Compile Include="Core\Models\RestaurantOwnership.cs" />
+    <Compile Include="Persistence\EntityConfigurations\RestaurantConfiguration.cs" />
+    <Compile Include="Persistence\Repositories\BusinessRepository.cs" />
+    <Compile Include="Core\Repositories\IBusinessRepository.cs" />
+    <Compile Include="Core\ViewModels\AccountViewModels.cs" />
+    <Compile Include="Core\Models\AdultUser.cs" />
+    <Compile Include="Persistence\ApplicationDbContext.cs" />
+    <Compile Include="Core\Models\Education.cs" />
+    <Compile Include="Core\Models\Gender.cs" />
+    <Compile Include="Core\Models\ApplicationUser.cs" />
+    <Compile Include="Core\Models\Location.cs" />
+    <Compile Include="Core\Models\ManageViewModels.cs" />
+    <Compile Include="Core\Models\Occupation.cs" />
+    <Compile Include="Core\Models\Parking.cs" />
+    <Compile Include="Core\Models\Restaurant.cs" />
+    <Compile Include="Core\Models\Visit.cs" />
+    <Compile Include="Persistence\Repositories\LocationRepository.cs" />
+    <Compile Include="Persistence\Repositories\RestaurantOwnershipRepository.cs" />
+    <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\BusinessFormViewModel.cs" />
-    <Compile Include="ViewModels\PorfileViewModel.cs" />
-    <Compile Include="ViewModels\UserVisitFormViewModel.cs" />
-    <Compile Include="ViewModels\ValidVat.cs" />
-    <Compile Include="ViewModels\WorkingBusinessModelView.cs" />
+    <Compile Include="Core\ViewModels\BusinessFormViewModel.cs" />
+    <Compile Include="Core\ViewModels\PorfileViewModel.cs" />
+    <Compile Include="Core\ViewModels\UserVisitFormViewModel.cs" />
+    <Compile Include="Core\ViewModels\ValidVat.cs" />
+    <Compile Include="Core\ViewModels\WorkingBusinessModelView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\TaxService\configuration91.svcinfo" />
@@ -363,12 +438,14 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\default_avatar.jpg" />
     <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Images\cover.jpg" />
+    <Content Include="Scripts\app\services\OpenCloseService.js" />
     <Content Include="Scripts\bloodhound.js" />
     <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootbox.js" />
@@ -515,11 +592,13 @@
     <Content Include="Views\Restaurant\MyBusinesses.cshtml" />
     <Content Include="Views\Home\Cover.cshtml" />
     <Content Include="Views\Home\Feed.cshtml" />
-    <Content Include="Views\Home\PlacesToGo.cshtml" />
     <Content Include="Views\Restaurant\EnterTheBusiness.cshtml" />
+    <Content Include="Views\Home\AdvancedSearch.cshtml" />
+    <Content Include="Views\Home\SearchResultsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\app\controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -541,91 +620,112 @@
     <WCFMetadataStorage Include="Connected Services\TaxService\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003221907242_Initial.resx">
+    <EmbeddedResource Include="Migrations\202004202024068_dummy.resx">
+      <DependentUpon>202004202024068_dummy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004210634077_AddingProfAndLogoImages.resx">
+      <DependentUpon>202004210634077_AddingProfAndLogoImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004210812528_deletingimages.resx">
+      <DependentUpon>202004210812528_deletingimages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004210814488_newtypeimages.resx">
+      <DependentUpon>202004210814488_newtypeimages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004210821131_deletingagain.resx">
+      <DependentUpon>202004210821131_deletingagain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004210822322_addingphotofeild.resx">
+      <DependentUpon>202004210822322_addingphotofeild.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004211035074_addingLogoToRestaurant.resx">
+      <DependentUpon>202004211035074_addingLogoToRestaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\202003221907242_Initial.resx">
       <DependentUpon>202003221907242_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003221910537_AddingUsersLocationsAndAreas.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003221910537_AddingUsersLocationsAndAreas.resx">
       <DependentUpon>202003221910537_AddingUsersLocationsAndAreas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003221915150_AddingRestaurants.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003221915150_AddingRestaurants.resx">
       <DependentUpon>202003221915150_AddingRestaurants.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003221922589_AddingVisits.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003221922589_AddingVisits.resx">
       <DependentUpon>202003221922589_AddingVisits.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003221924343_AddingEducationAndOccupation.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003221924343_AddingEducationAndOccupation.resx">
       <DependentUpon>202003221924343_AddingEducationAndOccupation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003221925368_AssigningEducationAndOccupationToAUser.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003221925368_AssigningEducationAndOccupationToAUser.resx">
       <DependentUpon>202003221925368_AssigningEducationAndOccupationToAUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003221926499_GivingAResaturantOwnershipToAnUser.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003221926499_GivingAResaturantOwnershipToAnUser.resx">
       <DependentUpon>202003221926499_GivingAResaturantOwnershipToAnUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003230719468_AddingAnotherOwnerToAnotherRestaurant.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003230719468_AddingAnotherOwnerToAnotherRestaurant.resx">
       <DependentUpon>202003230719468_AddingAnotherOwnerToAnotherRestaurant.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251152290_AddingOpenings.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003251152290_AddingOpenings.resx">
       <DependentUpon>202003251152290_AddingOpenings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.resx">
       <DependentUpon>202003251247433_CompletingTheRelationBeweenOpeningUserAndReastaurant.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251330053_AddingUserCloserToOPneing.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003251330053_AddingUserCloserToOPneing.resx">
       <DependentUpon>202003251330053_AddingUserCloserToOPneing.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251356201_test.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003251356201_test.resx">
       <DependentUpon>202003251356201_test.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251402365_deletingopenings.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003251402365_deletingopenings.resx">
       <DependentUpon>202003251402365_deletingopenings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251412453_addingOpening.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003251412453_addingOpening.resx">
       <DependentUpon>202003251412453_addingOpening.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003261917423_MakingOpeningOptional.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003261917423_MakingOpeningOptional.resx">
       <DependentUpon>202003261917423_MakingOpeningOptional.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003262033247_IncludingCategoryAsClass.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003262033247_IncludingCategoryAsClass.resx">
       <DependentUpon>202003262033247_IncludingCategoryAsClass.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003272044464_MakingRestaurantOwnrshipsLessStrict.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003272044464_MakingRestaurantOwnrshipsLessStrict.resx">
       <DependentUpon>202003272044464_MakingRestaurantOwnrshipsLessStrict.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003272051143_makingrestaurantidlessstrictinownerships.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003272051143_makingrestaurantidlessstrictinownerships.resx">
       <DependentUpon>202003272051143_makingrestaurantidlessstrictinownerships.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003282159182_AddingEventPlace.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003282159182_AddingEventPlace.resx">
       <DependentUpon>202003282159182_AddingEventPlace.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003291420100_RenameingNomosToNameInLocation.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202003291420100_RenameingNomosToNameInLocation.resx">
       <DependentUpon>202003291420100_RenameingNomosToNameInLocation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004041026589_AddingVatColumnToTheRestaurant.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202004041026589_AddingVatColumnToTheRestaurant.resx">
       <DependentUpon>202004041026589_AddingVatColumnToTheRestaurant.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004041529544_CreatingCapacityPropertiesAndManipulations.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202004041529544_CreatingCapacityPropertiesAndManipulations.resx">
       <DependentUpon>202004041529544_CreatingCapacityPropertiesAndManipulations.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004051910454_RemovingAvAndCurrentCapacity.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202004051910454_RemovingAvAndCurrentCapacity.resx">
       <DependentUpon>202004051910454_RemovingAvAndCurrentCapacity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004081837070_AddingLifeInfo.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202004081837070_AddingLifeInfo.resx">
       <DependentUpon>202004081837070_AddingLifeInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004081845494_AddingCurrentCapacityToLifeInfo.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202004081845494_AddingCurrentCapacityToLifeInfo.resx">
       <DependentUpon>202004081845494_AddingCurrentCapacityToLifeInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004081904379_AddingCurrentCapacityToTheRestaurant.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202004081904379_AddingCurrentCapacityToTheRestaurant.resx">
       <DependentUpon>202004081904379_AddingCurrentCapacityToTheRestaurant.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004081916151_MakingNullableCurrentCapacity.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202004081916151_MakingNullableCurrentCapacity.resx">
       <DependentUpon>202004081916151_MakingNullableCurrentCapacity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004111933066_AddingDeleteFunctionalityToRestaurant.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202004111933066_AddingDeleteFunctionalityToRestaurant.resx">
       <DependentUpon>202004111933066_AddingDeleteFunctionalityToRestaurant.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004130634541_AddingRelativeAndAbsoluteCapacities.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202004130634541_AddingRelativeAndAbsoluteCapacities.resx">
       <DependentUpon>202004130634541_AddingRelativeAndAbsoluteCapacities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

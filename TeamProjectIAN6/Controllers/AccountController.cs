@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using TeamProjectIAN6.Models;
 using TeamProjectIAN6.ViewModels;
 using System.Data.Entity;
+using System.IO;
 
 namespace TeamProjectIAN6.Controllers
 {
@@ -149,10 +150,23 @@ namespace TeamProjectIAN6.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register([Bind(Exclude = "UserPhoto")]RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
+
+                // To convert the user uploaded Photo as Byte Array before save to DB    
+                byte[] imageData = null;
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase poImgFile = Request.Files["UserPhoto"];
+
+                    using (var binary = new BinaryReader(poImgFile.InputStream))
+                    {
+                        imageData = binary.ReadBytes(poImgFile.ContentLength);
+                    }
+                }
+
                 var user = new ApplicationUser 
                 { 
                   UserName = model.Email, 
@@ -162,6 +176,8 @@ namespace TeamProjectIAN6.Controllers
                   DateOfBirth = model.DateOfBirth,
                   Gender = model.Gender
                 };
+
+                user.UserPhoto = imageData;
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -538,8 +554,47 @@ namespace TeamProjectIAN6.Controllers
             return RedirectToAction("MyProfile");
         }
 
+        public FileContentResult UserPhotos()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                String userId = User.Identity.GetUserId();
 
-       
+                if (userId == null)
+                {
+                    string fileName = HttpContext.Server.MapPath(@"~Content/Images/default_avatar.jpg");
+
+                    byte[] imageData = null;
+                    FileInfo fileInfo = new FileInfo(fileName);
+                    long imageFileLength = fileInfo.Length;
+                    FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                    BinaryReader br = new BinaryReader(fs);
+                    imageData = br.ReadBytes((int)imageFileLength);
+
+                    return File(imageData, "image/png");
+
+                }
+                // to get the user details to load user Image    
+                var bdUsers = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+                var userImage = bdUsers.Users.Where(x => x.Id == userId).FirstOrDefault();
+
+                return new FileContentResult(userImage.UserPhoto, "image/jpeg");
+            }
+            else
+            {
+                string fileName = HttpContext.Server.MapPath(@"~Content/Images/default_avatar.jpg");
+
+                byte[] imageData = null;
+                FileInfo fileInfo = new FileInfo(fileName);
+                long imageFileLength = fileInfo.Length;
+                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                imageData = br.ReadBytes((int)imageFileLength);
+                return File(imageData, "image/jpg");
+
+            }
+        }
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins

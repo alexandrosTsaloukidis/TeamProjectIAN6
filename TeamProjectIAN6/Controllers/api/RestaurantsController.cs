@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using TeamProjectIAN6.Dtos;
 using TeamProjectIAN6.Models;
+using System.Data.Entity;
 
 namespace TeamProjectIAN6.Controllers.api
 {
@@ -27,9 +28,15 @@ namespace TeamProjectIAN6.Controllers.api
         public IHttpActionResult GetRestaurants(string query = null)
         {
 
-            var restaurantsQuery = context.Restaurants.Where(r => r.IsOpened).AsQueryable();
+            var restaurantsQuery = context.Restaurants
+                                   .Include(r => r.Category)
+                                   .Include(r=> r.Location)
+                                   .Include(r=> r.Area)
+                                   .Where(r => r.IsOpened)
+                                   .AsQueryable();
             if (!String.IsNullOrWhiteSpace(query))
-                restaurantsQuery = restaurantsQuery.Where(r => r.Name.Contains(query));
+                restaurantsQuery = restaurantsQuery.Where(r =>  r.Name.Contains(query));
+
 
             var restaurants = restaurantsQuery.ToList()
                 .Select(Mapper.Map<Restaurant, RestaurantDto>);

@@ -78,3 +78,24 @@ textarea {
 #opened {
     margin-left: 20px;
 }
+
+
+.dataTables_filter {
+    margin-left: 100px !important;
+    padding-left: 100px !important;
+}
+
+#restaurants {
+    text-align: center;
+    width: 100px;
+    
+}
+
+.tableHeader {
+    text-align: center
+}
+
+
+td {
+    vertical-align: middle !important;
+}

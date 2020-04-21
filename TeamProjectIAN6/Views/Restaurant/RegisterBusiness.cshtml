@@ -6,8 +6,14 @@
 
 <h2>@Model.Heading</h2>
 
-@using (Html.BeginForm(Model.Action, "Restaurant"))
+@using (Html.BeginForm(Model.Action, "Restaurant", FormMethod.Post, new
 {
+    @class = "form-horizontal",
+    role = "form",
+    enctype = "multipart/form-data"
+}))
+
+{ 
 
     <p class="alert alert-info">All fields are <strong>required</strong></p>
     @Html.AntiForgeryToken()
@@ -81,9 +87,17 @@
         @Html.TextBoxFor(m => m.Lattitude, new { @id = "lat", @class = "form-control", @type = "number", @readonly = "readonly" })
     </div>
 
+    <div class="form-group">
+        @Html.LabelFor(m => m.Logo, new { @class = "col-md-2 control-label" })
+    </div>
+    <div class="form-group">
+            <input type="file" name="Logo" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+    </div>
+
 
     <button type="submit" class="btn btn-primary" onmouseover="getLonLat()">Save</button>
 }
+
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")

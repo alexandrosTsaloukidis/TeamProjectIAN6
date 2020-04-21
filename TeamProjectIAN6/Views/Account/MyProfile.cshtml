@@ -3,18 +3,49 @@
 
 @{
     ViewBag.Title = "MyProfile";
+
 }
 
 <h2>My Profile</h2>
 
+<h1>
+    Shanu Profile Image ..
 
-<table class="table">
-    <tr>
-        <th>@Html.DisplayFor(model => model.Firstname)</th>
-        <th>@Html.DisplayFor(model => model.Lastname)</th>
-        <th>@Html.DisplayFor(model => model.Age)</th>
-        <th>@Html.DisplayFor(model => model.Education.Name)</th>
-        <th>@Html.DisplayFor(model => model.Occupation.Name)</th>
-    </tr>
- 
-</table>
+    <img src="@Url.Action("UserPhotos", "Account" )" style="width:160px;height:160px; background: #FFFFFF;
+    margin: auto;
+    -moz-border-radius: 60px;
+    border-radius: 100px;
+    padding: 6px;
+    box-shadow: 0px 0px 20px #888;" />
+</h1>
+
+
+@*<div>
+        @if (@Model.UserPhoto == null)
+        {
+            <img src="@Url.Content("~/Content/Images/default_avatar.png")" align="left" />
+        }
+    </div>
+
+    <div>
+        @Html.DisplayFor(model => model.Firstname)
+        @Html.DisplayFor(model => model.Lastname)
+        @Html.DisplayFor(model => model.Age)
+    </div>
+
+
+    @if (@Model.Education != null)
+    {
+        <div>
+            @Html.DisplayFor(model => model.Education.Name)
+        </div>
+    }
+
+    @if (@Model.Occupation != null)
+    {
+        <div>
+            @Html.DisplayFor(model => model.Occupation.Name)
+        </div>
+    }*@
+
+

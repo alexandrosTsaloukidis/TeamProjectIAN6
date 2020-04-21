@@ -1,0 +1,80 @@
+﻿@model List<TeamProjectIAN6.Core.ViewModels.SearchViewModel>
+
+@{
+    ViewBag.Title = "SearchResultView";
+}
+
+<h2>Places To Go</h2>
+<p>
+    @Html.ActionLink("Advanced Search", "AdvancedSearchScreen")
+</p>
+
+<table id="restaurants" class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="tableHeader">Name</th>
+            <th class="tableHeader">Capacity</th>
+            <th class="tableHeader">Current Capacity</th>
+            <th class="tableHeader">Absolute Capacity</th>
+            <th class="tableHeader">Relative Capacity (%)</th>
+            <th class="tableHeader">Action</th>
+
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+
+        $(document).ready(function () {
+
+
+            let table = $("#restaurants").DataTable({
+                    ajax: {
+                    url: "/api/SearchResults?location=" + "@Model[0].LocationSequence" + "&area=" + "@Model[0].AreaSequence" + "&category=" + "@Model[0].CategorySequence" ,
+                    dataSrc: ""
+                    },
+                columns: [
+                        {
+                        data: "name",
+                        className: "left",
+                        render: function (data, type, full, meta) {
+                            return '<p>' + full.name + '</p>'
+                                + '<p>' + full.category.name + '</p>'
+                                + '<br/>'
+                                + '<p>' + '<span>' + full.streetName + ',&nbsp;</span>' + '<span>' + full.streetNumber + '</span>' + '</p>'
+                                + '<p>' + '<span>' + full.area.name + ',&nbsp;</span>' + '<span>' + full.location.name + '</span>' + '</p>';
+                        }
+
+                        },
+
+
+                    {
+                        data: "capacity"
+                    },
+
+                    {
+                        data: "currentCapacity"
+                    },
+                    {
+                        data: "absoluteCapacity"
+                    },
+
+                    {
+                        data: "relativeCapacity"
+                    },
+                    {
+                        render: function (data, type, full, meta) {
+                            return '<a href="#">Join Chat</a>'
+                                
+                        }
+
+                    }
+
+                ]
+            });
+        });
+    </script>
+}
