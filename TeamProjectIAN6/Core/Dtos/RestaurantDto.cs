@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -59,7 +60,8 @@ namespace TeamProjectIAN6.Models
         public bool IsOpened { get; set; }
 
         public bool IsDeleted { get; set; }
-   
+
+        public string PhoneNumber { get; set; } 
         public int? AreaID { get; set; }
         public AreaDto Area { get; set; }
         //public Image ProfilePic { get; set; }

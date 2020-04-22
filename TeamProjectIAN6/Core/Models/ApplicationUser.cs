@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TeamProjectIAN5.Models;
+using TeamProjectIAN6.Core.Models;
 
 namespace TeamProjectIAN6.Models
 {
@@ -44,6 +45,8 @@ namespace TeamProjectIAN6.Models
         public ICollection<Opening> UserClosers { get; set; }
 
         public ICollection<RestaurantOwnership> RestaurantOwnerships { get; set; }
+
+        public ICollection<FollowRestaurant> FollowRestaurants { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
 

@@ -13,7 +13,7 @@
     enctype = "multipart/form-data"
 }))
 
-{ 
+{
 
     <p class="alert alert-info">All fields are <strong>required</strong></p>
     @Html.AntiForgeryToken()
@@ -72,6 +72,13 @@
 
     </div>
 
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber) <br />
+        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+    
+
+    </div>
+
 
     <div class="form-group">
         @Html.LabelFor(m => m.PostalCode)
@@ -91,7 +98,7 @@
         @Html.LabelFor(m => m.Logo, new { @class = "col-md-2 control-label" })
     </div>
     <div class="form-group">
-            <input type="file" name="Logo" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+        <input type="file" name="Logo" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
     </div>
 
 

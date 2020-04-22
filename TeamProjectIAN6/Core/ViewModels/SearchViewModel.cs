@@ -45,6 +45,7 @@ namespace TeamProjectIAN6.Core.ViewModels
 
         public bool IsOpened { get; set; }
 
+        public string PhoneNumber { get; set; }
         [Required]
         [ValidVat]
         public string VatNumber { get; set; }

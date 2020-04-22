@@ -465,16 +465,6 @@ namespace TeamProjectIAN6.Controllers
 
                 ;
 
-
-            //if (id != null)
-            //{
-            //    ViewBag.UserId = id.Value;
-            //    viewModel.Visits = viewModel.Users
-            //        .Where(i => i.ID == id.Value).Single().Visits;
-
-
-            //}
-
             return View(viewModel);
         }
 
@@ -556,46 +546,33 @@ namespace TeamProjectIAN6.Controllers
 
         public FileContentResult UserPhotos()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                String userId = User.Identity.GetUserId();
 
-                if (userId == null)
-                {
-                    string fileName = HttpContext.Server.MapPath(@"~Content/Images/default_avatar.jpg");
+            var fileName = ConvertImageToByteArray(HttpContext.Server.MapPath(@Url.Content("~/Images/default_avatar.jpg")));
+            String userId = User.Identity.GetUserId();  
+            var bdUsers = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+            var userImage = bdUsers.Users.Where(x => x.Id == userId).FirstOrDefault();
+                if (userImage.UserPhoto != null)
+                    fileName = userImage.UserPhoto;
+            
+            return userImage.UserPhoto == null || !User.Identity.IsAuthenticated ? File(fileName, "image/jpeg"): File(userImage.UserPhoto, "image/jpeg");
 
-                    byte[] imageData = null;
-                    FileInfo fileInfo = new FileInfo(fileName);
-                    long imageFileLength = fileInfo.Length;
-                    FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-                    BinaryReader br = new BinaryReader(fs);
-                    imageData = br.ReadBytes((int)imageFileLength);
-
-                    return File(imageData, "image/png");
-
-                }
-                // to get the user details to load user Image    
-                var bdUsers = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
-                var userImage = bdUsers.Users.Where(x => x.Id == userId).FirstOrDefault();
-
-                return new FileContentResult(userImage.UserPhoto, "image/jpeg");
-            }
-            else
-            {
-                string fileName = HttpContext.Server.MapPath(@"~Content/Images/default_avatar.jpg");
-
-                byte[] imageData = null;
-                FileInfo fileInfo = new FileInfo(fileName);
-                long imageFileLength = fileInfo.Length;
-                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-                BinaryReader br = new BinaryReader(fs);
-                imageData = br.ReadBytes((int)imageFileLength);
-                return File(imageData, "image/jpg");
-
-            }
+            
         }
 
 
+
+        private static byte[] ConvertImageToByteArray(string imagePath)
+        {
+            byte[] imageByteArray = null;
+            FileStream fileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
+            using (BinaryReader reader = new BinaryReader(fileStream))
+            {
+                imageByteArray = new byte[reader.BaseStream.Length];
+                for (int i = 0; i < reader.BaseStream.Length; i++)
+                    imageByteArray[i] = reader.ReadByte();
+            }
+            return imageByteArray;
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

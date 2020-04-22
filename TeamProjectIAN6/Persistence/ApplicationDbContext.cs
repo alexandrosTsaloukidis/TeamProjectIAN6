@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
+using TeamProjectIAN6.Core.Models;
 using TeamProjectIAN6.Persistence.EntityConfigurations;
 
 namespace TeamProjectIAN6.Models
@@ -30,6 +31,8 @@ namespace TeamProjectIAN6.Models
         public DbSet<RestaurantOwnership> RestaurantOwnerships { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<EventPlace> EventPlaces { get; set; }
+
+        public DbSet<FollowRestaurant> FollowRestaurants { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

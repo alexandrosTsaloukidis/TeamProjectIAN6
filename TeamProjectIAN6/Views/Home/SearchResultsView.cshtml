@@ -18,6 +18,7 @@
             <th class="tableHeader">Absolute Capacity</th>
             <th class="tableHeader">Relative Capacity (%)</th>
             <th class="tableHeader">Action</th>
+            <th class="tableHeader">Follow</th>
 
         </tr>
     </thead>
@@ -44,8 +45,9 @@
                             return '<p>' + full.name + '</p>'
                                 + '<p>' + full.category.name + '</p>'
                                 + '<br/>'
-                                + '<p>' + '<span>' + full.streetName + ',&nbsp;</span>' + '<span>' + full.streetNumber + '</span>' + '</p>'
-                                + '<p>' + '<span>' + full.area.name + ',&nbsp;</span>' + '<span>' + full.location.name + '</span>' + '</p>';
+                                + '<p>' + '<span>' + full.streetName + '&nbsp;</span>' + '<span>' + full.streetNumber +
+                                ',&nbsp;</span>' + '<span>' + full.area.name + '&nbsp;</span>' + '<span>' + full.location.name + '</span>' + '</p>'
+                                + '<p>' + full.phoneNumber + '</p>'
                         }
 
                         },
@@ -68,7 +70,14 @@
                     {
                         render: function (data, type, full, meta) {
                             return '<a href="#">Join Chat</a>'
-                                
+
+                        }
+
+                    },
+                    {
+                        render: function (data, type, full, meta) {
+                            return "<button  data-business-id=" + full.Id +" class='btn btn-info btn-sm js-toggle-open'>Follow</button>"
+
                         }
 
                     }
@@ -77,4 +86,26 @@
             });
         });
     </script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $(".js-toggle-open").click(function (e) {
+                var button = $(e.target);
+
+                $.post("/api/openings", { restaurantId: button.attr("data-business-id") })
+                    .done(function () {
+
+                    })
+                    .fail(function () {
+                        alert("Open/Close failed");
+                    });
+            });
+        });
+        
+
+
+    </script>
+     
 }

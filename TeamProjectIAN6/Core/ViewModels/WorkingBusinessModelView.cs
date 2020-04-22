@@ -26,8 +26,9 @@ namespace TeamProjectIAN6.ViewModels
         public int? CurrenCapacity { get; set; }
         public bool IsOpened { get; set; }
         public double Lattitude { get; set; } 
-        public double Longitude { get; set; } 
+        public double Longitude { get; set; }
 
+        public string PhoneNumber { get; set; }
         public double PostalCode { get; set; }
      
     }

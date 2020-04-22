@@ -25,6 +25,8 @@ namespace TeamProjectIAN6.Persistence
 
         public IRestaurantOwnershipRepository RestaurantOwnerships { get; private set; }
 
+        public IFollowRestaurantRepository FollowRestaurants { get; private set; }
+
         public IEventPlaceRepository EventPlaces { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -37,6 +39,7 @@ namespace TeamProjectIAN6.Persistence
             Areas = new AreaRepository(context);
             RestaurantOwnerships = new RestaurantOwnershipRepository(context);
             EventPlaces = new EventPlaceRepository(context);
+            FollowRestaurants = new FollowRestaurantRepository(context);
         }
 
         public void Complete() 

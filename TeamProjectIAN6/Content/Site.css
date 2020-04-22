@@ -87,7 +87,7 @@ textarea {
 
 #restaurants {
     text-align: center;
-    width: 100px;
+    width: 1000px !important;
     
 }
 
@@ -98,4 +98,16 @@ textarea {
 
 td {
     vertical-align: middle !important;
+}
+
+.ProfileImageInMyPorfile {
+    width: 160px;
+    height: 160px;
+    background: #FFFFFF;
+    margin: auto;
+    margin: auto;
+    -moz-border-radius: 60px;
+    border-radius: 0;
+    padding: 6px;
+    box-shadow: 0px 0px 20px #888;
 }

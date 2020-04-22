@@ -21,7 +21,7 @@ namespace TeamProjectIAN6.Core
         IEventPlaceRepository EventPlaces {get;}
 
         IRestaurantOwnershipRepository RestaurantOwnerships { get;}
-        
+        IFollowRestaurantRepository FollowRestaurants { get; }
 
         void Complete();
 

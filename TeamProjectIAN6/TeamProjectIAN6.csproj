@@ -220,6 +220,7 @@
     <Compile Include="Controllers\api\AreasController.cs" />
     <Compile Include="Controllers\api\CategoriesController.cs" />
     <Compile Include="Controllers\api\EducationsController.cs" />
+    <Compile Include="Controllers\api\FollowRestaurntsController.cs" />
     <Compile Include="Controllers\api\LocationsController.cs" />
     <Compile Include="Controllers\api\OpeningsController.cs" />
     <Compile Include="Controllers\api\RestaurantsController.cs" />
@@ -229,12 +230,14 @@
     <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Core\Dtos\AreaDto.cs" />
     <Compile Include="Core\Dtos\CategoryDto.cs" />
+    <Compile Include="Core\Dtos\FollowRestaurantDto.cs" />
     <Compile Include="Core\Dtos\EducationDto.cs" />
     <Compile Include="Core\Dtos\LocationDto.cs" />
     <Compile Include="Core\Dtos\OccupationDto.cs" />
     <Compile Include="Core\Dtos\OpeningDto.cs" />
     <Compile Include="Core\Dtos\RestaurantDto.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Models\FollowRestaurant.cs" />
     <Compile Include="Core\Repositories\ILifeInfoRepository.cs" />
     <Compile Include="Core\ViewModels\SearchViewModel.cs" />
     <Compile Include="Global.asax.cs">
@@ -269,6 +272,26 @@
     <Compile Include="Migrations\202004211035074_addingLogoToRestaurant.Designer.cs">
       <DependentUpon>202004211035074_addingLogoToRestaurant.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004220646178_AddingRestaurantFollowing.cs" />
+    <Compile Include="Migrations\202004220646178_AddingRestaurantFollowing.Designer.cs">
+      <DependentUpon>202004220646178_AddingRestaurantFollowing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004220647334_AddingDatesToFollowRestaurants.cs" />
+    <Compile Include="Migrations\202004220647334_AddingDatesToFollowRestaurants.Designer.cs">
+      <DependentUpon>202004220647334_AddingDatesToFollowRestaurants.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004220653581_AddingPhoneNUmber.cs" />
+    <Compile Include="Migrations\202004220653581_AddingPhoneNUmber.Designer.cs">
+      <DependentUpon>202004220653581_AddingPhoneNUmber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004220729175_initiliazingthephonenumber.cs" />
+    <Compile Include="Migrations\202004220729175_initiliazingthephonenumber.Designer.cs">
+      <DependentUpon>202004220729175_initiliazingthephonenumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004221121292_AddingFollowRestaurant.cs" />
+    <Compile Include="Migrations\202004221121292_AddingFollowRestaurant.Designer.cs">
+      <DependentUpon>202004221121292_AddingFollowRestaurant.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Repositories\AreaRepository.cs" />
     <Compile Include="Persistence\Repositories\CategoryRepository.cs" />
     <Compile Include="Core\Repositories\ICategoryRepository.cs" />
@@ -277,6 +300,8 @@
     <Compile Include="Core\Repositories\IRestaurantOwnershipRepository.cs" />
     <Compile Include="Persistence\Repositories\EventPlaceRepository.cs" />
     <Compile Include="Core\Repositories\IEventPlaceRepository.cs" />
+    <Compile Include="Persistence\Repositories\FollowRestaurantRepository.cs" />
+    <Compile Include="Core\Repositories\IFollowRestaurantRepository.cs" />
     <Compile Include="Persistence\Repositories\LifeInfoRepository.cs" />
     <Compile Include="Persistence\Migrations\202003221907242_Initial.cs" />
     <Compile Include="Persistence\Migrations\202003221907242_Initial.Designer.cs">
@@ -438,7 +463,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\default_avatar.jpg" />
+    <Content Include="Images\default_avatar.jpg" />
     <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -640,6 +665,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004211035074_addingLogoToRestaurant.resx">
       <DependentUpon>202004211035074_addingLogoToRestaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004220646178_AddingRestaurantFollowing.resx">
+      <DependentUpon>202004220646178_AddingRestaurantFollowing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004220647334_AddingDatesToFollowRestaurants.resx">
+      <DependentUpon>202004220647334_AddingDatesToFollowRestaurants.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004220653581_AddingPhoneNUmber.resx">
+      <DependentUpon>202004220653581_AddingPhoneNUmber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004220729175_initiliazingthephonenumber.resx">
+      <DependentUpon>202004220729175_initiliazingthephonenumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004221121292_AddingFollowRestaurant.resx">
+      <DependentUpon>202004221121292_AddingFollowRestaurant.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Persistence\Migrations\202003221907242_Initial.resx">
       <DependentUpon>202003221907242_Initial.cs</DependentUpon>

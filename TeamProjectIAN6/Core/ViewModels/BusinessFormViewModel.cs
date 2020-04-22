@@ -36,6 +36,7 @@ namespace TeamProjectIAN6.ViewModels
         public double Lattitude { get; set; }  // todo to remove
         public double Longitude { get; set; } // todo to remove
 
+        public string PhoneNumber { get; set; }
         public double PostalCode { get; set; }
         public string Heading { get; set; }
         [Required]
@@ -86,6 +87,7 @@ namespace TeamProjectIAN6.ViewModels
             Longitude = restaurant.Longitude;
             PostalCode = restaurant.PostalCode;
             Heading = "Edit a business";
+            PhoneNumber = restaurant.PhoneNumber;
         }
 
         public static BusinessFormViewModel CreateBusinessFormViewModel (Restaurant restaurant, List<Category> categories, List<Location> locations, List<Area> areas)

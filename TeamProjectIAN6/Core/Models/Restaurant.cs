@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using TeamProjectIAN6.Core.Models;
 using TeamProjectIAN6.Core.ViewModels;
 using TeamProjectIAN6.Interfaces;
 using TeamProjectIAN6.ViewModels;
@@ -82,6 +84,7 @@ namespace TeamProjectIAN6.Models
         //public Image ProfilePic { get; set; }
         public Category Category { get; set; }
 
+        public string PhoneNumber { get; set; }
         public byte[] Logo { get; set; }
         public ICollection<Opening> Openings { get; private set; }
 
@@ -112,6 +115,7 @@ namespace TeamProjectIAN6.Models
             Longitude = businessFormViewModel.Longitude;
             PostalCode = businessFormViewModel.PostalCode;
             Vat = businessFormViewModel.VatNumber;
+            PhoneNumber = businessFormViewModel.PhoneNumber;
             Category = businessFormViewModel.Categories.SingleOrDefault(c => c.Name == businessFormViewModel.Category);
             Area = businessFormViewModel.Areas.SingleOrDefault(a => a.Name == businessFormViewModel.Area);
             Location = businessFormViewModel.Locations.SingleOrDefault(l => l.Name == businessFormViewModel.Location);
@@ -134,7 +138,9 @@ namespace TeamProjectIAN6.Models
                 Longitude = this.Longitude,
                 PostalCode = this.PostalCode,
                 CurrenCapacity = this.CurrentCapacity,
-                IsOpened = this.IsOpened
+                IsOpened = this.IsOpened,
+                PhoneNumber = this.PhoneNumber
+                
                
             };
 
@@ -161,6 +167,7 @@ namespace TeamProjectIAN6.Models
                 IsOpened = this.IsOpened,
                 AbsoluteCapacity = this.AbsoluteCapacity,
                 RelativeCapacity = this.RelativeCapacity,
+                PhoneNumber = this.PhoneNumber,
                 LocationSequence = location,
                 AreaSequence = area,
                 CategorySequence = category
@@ -214,9 +221,12 @@ namespace TeamProjectIAN6.Models
             this.Lattitude = viewModel.Lattitude;
             this.Longitude = viewModel.Longitude;
             this.PostalCode = viewModel.PostalCode;
+            this.PhoneNumber = viewModel.PhoneNumber;
             this.Category = viewModel.Categories.SingleOrDefault(c => c.Name == viewModel.Category);
             this.Area = viewModel.Areas.SingleOrDefault(a => a.Name == viewModel.Area);
             this.Location = viewModel.Locations.SingleOrDefault(l => l.Name == viewModel.Location);
         }
+
+        public ICollection<FollowRestaurant> FollowRestaurants { get; set; }
     }
 }
