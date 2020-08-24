@@ -46,7 +46,7 @@ namespace TeamProjectIAN6.Models
 
         }
 
-        [ValidVat]
+        //[ValidVat]
         public string Vat { get; set; }
 
         public int LocationID { get; set; }
@@ -86,10 +86,18 @@ namespace TeamProjectIAN6.Models
 
         public string PhoneNumber { get; set; }
         public byte[] Logo { get; set; }
+
+        public string FollowButtonClass { get; set; }
+
+        public string FollowButtonText { get; set; } 
+
         public ICollection<Opening> Openings { get; private set; }
 
         public ICollection<RestaurantOwnership> RestaurantOwnerships { get; private set; }
         public ICollection<Visit> Visits { get; private set; }
+
+        public ICollection<FollowRestaurant> FollowRestaurants { get; set; }
+
 
 
         public Restaurant()
@@ -148,7 +156,7 @@ namespace TeamProjectIAN6.Models
         }
 
 
-        public SearchViewModel CreateSearchViewModel(string location, string area, string category)
+        public SearchViewModel CreateSearchViewModel(string userID, bool alreadyFollows, string location, string area, string category)
         {
             var viewModel = new SearchViewModel()
             {
@@ -174,6 +182,10 @@ namespace TeamProjectIAN6.Models
 
 
             };
+
+            if (alreadyFollows)
+                viewModel.IsFollowed = true;
+
 
             return viewModel; 
         }
@@ -227,6 +239,20 @@ namespace TeamProjectIAN6.Models
             this.Location = viewModel.Locations.SingleOrDefault(l => l.Name == viewModel.Location);
         }
 
-        public ICollection<FollowRestaurant> FollowRestaurants { get; set; }
+
+        public void SetInitialFollowing()
+        {
+            FollowButtonClass = "btn btn-info btn-sm js-toggle-follow";
+            FollowButtonText = "Follow";
+        }
+
+        public void ChangeToUnfollowing()
+        {
+            FollowButtonClass = "btn btn-default btn-sm js-toggle-follow";
+            FollowButtonText = "Unfollow";
+        }
+
+        
+        
     }
 }

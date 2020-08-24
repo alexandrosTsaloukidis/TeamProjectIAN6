@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
@@ -41,6 +42,8 @@ namespace TeamProjectIAN6.Models
         public byte[] UserPhoto { get; set; }
         public virtual ICollection<Visit> Visits { get; set; }
 
+        public ICollection<UserNotification> UserNotifications { get; set; }
+
         public ICollection<Opening> Users { get; set; }
         public ICollection<Opening> UserClosers { get; set; }
 
@@ -54,6 +57,18 @@ namespace TeamProjectIAN6.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
+        }
+
+
+        public ApplicationUser()
+        {
+
+            UserNotifications = new Collection<UserNotification>();
+        }
+
+        public void Notify(Notification notification)
+        {
+            UserNotifications.Add(new UserNotification(this, notification));
         }
     }
 

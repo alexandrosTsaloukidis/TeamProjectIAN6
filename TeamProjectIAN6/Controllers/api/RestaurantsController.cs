@@ -9,6 +9,7 @@ using System.Web.Http;
 using TeamProjectIAN6.Dtos;
 using TeamProjectIAN6.Models;
 using System.Data.Entity;
+using TeamProjectIAN6.Core;
 
 namespace TeamProjectIAN6.Controllers.api
 {
@@ -16,10 +17,12 @@ namespace TeamProjectIAN6.Controllers.api
     {
 
         private ApplicationDbContext context;
+        private readonly IUnitOfWork unitOfWork;
 
-        public RestaurantsController()
+        public RestaurantsController(IUnitOfWork unitOfWork)
         {
             context = new ApplicationDbContext();
+            this.unitOfWork = unitOfWork;
         }
 
 
@@ -37,9 +40,22 @@ namespace TeamProjectIAN6.Controllers.api
             if (!String.IsNullOrWhiteSpace(query))
                 restaurantsQuery = restaurantsQuery.Where(r =>  r.Name.Contains(query));
 
+            string userId = User.Identity.GetUserId();
+            var userFollowings = unitOfWork.FollowRestaurants.GetUserFollowings(userId);
+
+            if (userFollowings.Count > 0)
+            {
+                foreach (var restaurant in restaurantsQuery)
+                    foreach (var userFollowing in userFollowings)
+                    {
+                        if (restaurant.ID == userFollowing.RestaurantId)
+                            restaurant.ChangeToUnfollowing();
+                    }
+            }
 
             var restaurants = restaurantsQuery.ToList()
                 .Select(Mapper.Map<Restaurant, RestaurantDto>);
+
             return Ok(restaurants);
         }
 

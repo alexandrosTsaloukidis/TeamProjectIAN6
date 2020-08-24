@@ -15,7 +15,9 @@ namespace TeamProjectIAN6
                         "~/Scripts/datatables/datatables.bootstrap.js",
                         "~/Scripts/typeahead.bloodhound.js",
                         "~/Scripts/typeahead.bloodhound.min.js",
-                        "~/Scripts/bootbox.min.js"
+                        "~/Scripts/bootbox.min.js",
+                        "~/Scripts/underscore.min.js",
+                        "~/Scripts/moment.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -32,7 +34,8 @@ namespace TeamProjectIAN6
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/Site.css",
-                      "~/Content/typeahead.css"));
+                      "~/Content/typeahead.css",
+                      "~/Content/animate.css"));
 
         }
     }

@@ -108,7 +108,7 @@ namespace TeamProjectIAN6.Controllers
             string userId = User.Identity.GetUserId();
 
 
-            CheckUpdateCategoryLOcationArea(businessFormViewModel);
+            CheckUpdateCategoryLocationArea(businessFormViewModel);
             businessFormViewModel.Areas = unitOfWork.Areas.GetAreas();
             businessFormViewModel.Locations = unitOfWork.Locations.GetLocations();
             businessFormViewModel.Categories = unitOfWork.Categories.GetCategories();
@@ -162,7 +162,7 @@ namespace TeamProjectIAN6.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult EditBusiness(BusinessFormViewModel viewModel)
+        public ActionResult EditBusiness([Bind(Exclude = "Logo")] BusinessFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -176,7 +176,7 @@ namespace TeamProjectIAN6.Controllers
             var userId = User.Identity.GetUserId();
             var restaurant = unitOfWork.Businesses.GetRestaurant(viewModel.Id, userId);
 
-            CheckUpdateCategoryLOcationArea(viewModel);
+            CheckUpdateCategoryLocationArea(viewModel);
 
 
             viewModel.Areas = unitOfWork.Areas.GetAreas();
@@ -189,7 +189,7 @@ namespace TeamProjectIAN6.Controllers
         }
 
 
-        private void CheckUpdateCategoryLOcationArea(BusinessFormViewModel viewModel)
+        private void CheckUpdateCategoryLocationArea(BusinessFormViewModel viewModel)
         {
             var category = unitOfWork.Categories.GetCategory(viewModel.Category);
             if (category == null)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using TeamProjectIAN6.Core.Models;
 using TeamProjectIAN6.Models;
 using TeamProjectIAN6.ViewModels;
 
@@ -32,8 +33,8 @@ namespace TeamProjectIAN6.Core.ViewModels
         public string StreetNumber { get; set; }
 
 
-        public double Lattitude { get; set; }  
-        public double Longitude { get; set; } 
+        public double Lattitude { get; set; }
+        public double Longitude { get; set; }
 
         public double PostalCode { get; set; }
 
@@ -45,6 +46,8 @@ namespace TeamProjectIAN6.Core.ViewModels
 
         public bool IsOpened { get; set; }
 
+        public bool IsFollowed { get; set; }
+
         public string PhoneNumber { get; set; }
         [Required]
         [ValidVat]
@@ -53,10 +56,16 @@ namespace TeamProjectIAN6.Core.ViewModels
         public IEnumerable<Location> Locations { get; set; }
 
         public IEnumerable<Area> Areas { get; set; }
+
+        public IEnumerable<FollowRestaurant> FollowRestaurants { get; set;}
         public string LocationSequence { get; set; }
 
         public string AreaSequence { get; set; }
 
         public string CategorySequence { get; set; }
+
+        
+
+
     }
 }

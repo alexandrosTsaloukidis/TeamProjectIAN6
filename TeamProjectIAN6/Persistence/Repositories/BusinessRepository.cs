@@ -17,7 +17,7 @@ namespace TeamProjectIAN6.Repositories
         }
 
 
-        public IQueryable<Restaurant> GetRestaurantsQuerable(string location = null, string area = null, string category = null)
+        public IQueryable<Restaurant> GetRestaurantsQuerable(string userID, string location = null, string area = null, string category = null)
         {
 
             var restaurants = _context.Restaurants.Where(r => r.IsOpened).
@@ -41,10 +41,14 @@ namespace TeamProjectIAN6.Repositories
                 restaurants = restaurants.Where(r => category.Contains(r.Category.Name));
             }
 
+            foreach (var restaurant in restaurants)
+                restaurant.FollowRestaurants = _context.FollowRestaurants.Where(f => f.RestaurantId == restaurant.ID &&
+                                                                                     f.UserId == userID).ToList();
 
             return restaurants;
         }
 
+        
 
         public Restaurant GetRestaurant(int restaurantId, string userId)
         {
@@ -73,6 +77,8 @@ namespace TeamProjectIAN6.Repositories
                                 .Select(ro => ro.Restaurant).Where(r => !r.IsDeleted).ToList();
 
         }
+
+
 
     }
 }

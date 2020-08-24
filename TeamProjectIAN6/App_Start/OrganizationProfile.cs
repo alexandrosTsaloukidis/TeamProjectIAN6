@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TeamProjectIAN6.Core.Dtos;
 using TeamProjectIAN6.Core.Models;
-using TeamProjectIAN6.Dtos;
+
 using TeamProjectIAN6.Models;
 
 namespace TeamProjectIAN6.App_Start
@@ -19,6 +20,7 @@ namespace TeamProjectIAN6.App_Start
             CreateMap<Area, AreaDto>();
             CreateMap<Location, LocationDto>();
             CreateMap<FollowRestaurant, FollowRestaurantDto>();
+            CreateMap<Notification, NotificationDto>();
         }
     }
 }

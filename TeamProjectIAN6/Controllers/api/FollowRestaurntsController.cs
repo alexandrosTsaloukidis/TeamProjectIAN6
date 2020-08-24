@@ -5,31 +5,59 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using TeamProjectIAN6.Core;
+using TeamProjectIAN6.Dtos;
+using TeamProjectIAN6.Models;
+using System.Data.Entity;
 using TeamProjectIAN6.Core.Models;
 
 namespace TeamProjectIAN6.Controllers.api
 {
     public class FollowRestaurntsController : ApiController
     {
+        private ApplicationDbContext context;
 
-        private readonly IUnitOfWork unitOfWork;
-
-        public FollowRestaurntsController(IUnitOfWork unitOfWork)
+        public FollowRestaurntsController()
         {
-            this.unitOfWork = unitOfWork;
-
+            context = new ApplicationDbContext();
         }
 
-        public IHttpActionResult FollowRestaurantAction(FollowRestaurantDto followRestaurantDto)
-        {
-            var userId = User.Identity.GetUserId();
-            if (unitOfWork.FollowRestaurants.CheckIfAlreadyFollows(userId, followRestaurantDto.RestaurantId))
-                return BadRequest("Soo unfollow functionality");
+        //POST api/openings
 
-            var folllowRestaurant = FollowRestaurant.CreateFollowRestaurant(userId, followRestaurantDto.RestaurantId, DateTime.Now);
-            unitOfWork.FollowRestaurants.AddRestaurantFollowing(folllowRestaurant);
+        [HttpPost]
+        private IHttpActionResult Unfollow(FollowRestaurantDto followRestaurantDto)
+        {
+
+            //context.FollowRestaurants.FirstOrDefault(f => f.RestaurantId == followRestaurantDto.RestaurantId && f.UnfollowDate == null)
+            //    .SetDateTimeUnfollow(DateTime.Now);
+
+
+            //context.SaveChanges();
+
             return Ok();
         }
+
+        [HttpPost]
+        public IHttpActionResult Follow(FollowRestaurantDto followRestaurantDto)
+        {
+            var userId = User.Identity.GetUserId();
+
+            if (context.FollowRestaurants.Any(f => f.RestaurantId == followRestaurantDto.RestaurantId && f.UnfollowDate == null))
+                Unfollow(followRestaurantDto);
+
+            //else
+            //{
+            //    var followRestaurant = new FollowRestaurant(userId, followRestaurantDto.RestaurantId, DateTime.Now);
+      
+            //    context.FollowRestaurants.Add(followRestaurant);
+
+            //    context.SaveChanges();
+
+
+
+            //}
+
+            return Ok();
+        }
+
     }
 }

@@ -40,7 +40,8 @@ namespace TeamProjectIAN6.ViewModels
         public double PostalCode { get; set; }
         public string Heading { get; set; }
         [Required]
-        [ValidVat]
+
+        //[ValidVat]
         public string VatNumber { get; set; }
         public IEnumerable<Category> Categories { get; set; }
         public IEnumerable<Location> Locations { get; set; }

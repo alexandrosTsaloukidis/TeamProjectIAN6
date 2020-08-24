@@ -22,7 +22,32 @@
 
         </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+
+        @foreach (var restaurant in Model)
+        {
+            <tr>
+                <td>@restaurant.Name</td>
+                <td>@restaurant.Capacity</td>
+                <td>@restaurant.CurrentCapacity</td>
+                <td>@restaurant.AbsoluteCapacity</td>
+                <td>@restaurant.RelativeCapacity</td>
+                <td><a href="#">Join Chat</a></td>
+                <td>
+
+                    @if (restaurant.IsFollowed)
+                    {
+                        <button class="btn btn-outline-primary" data-business-id="@restaurant.Id">Unfollow</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary" data-business-id="@restaurant.Id">Follow</button>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 @section scripts
@@ -30,82 +55,54 @@
     <script>
 
         $(document).ready(function () {
-
-
-            let table = $("#restaurants").DataTable({
-                    ajax: {
-                    url: "/api/SearchResults?location=" + "@Model[0].LocationSequence" + "&area=" + "@Model[0].AreaSequence" + "&category=" + "@Model[0].CategorySequence" ,
-                    dataSrc: ""
-                    },
-                columns: [
-                        {
-                        data: "name",
-                        className: "left",
-                        render: function (data, type, full, meta) {
-                            return '<p>' + full.name + '</p>'
-                                + '<p>' + full.category.name + '</p>'
-                                + '<br/>'
-                                + '<p>' + '<span>' + full.streetName + '&nbsp;</span>' + '<span>' + full.streetNumber +
-                                ',&nbsp;</span>' + '<span>' + full.area.name + '&nbsp;</span>' + '<span>' + full.location.name + '</span>' + '</p>'
-                                + '<p>' + full.phoneNumber + '</p>'
-                        }
-
-                        },
-
-
-                    {
-                        data: "capacity"
-                    },
-
-                    {
-                        data: "currentCapacity"
-                    },
-                    {
-                        data: "absoluteCapacity"
-                    },
-
-                    {
-                        data: "relativeCapacity"
-                    },
-                    {
-                        render: function (data, type, full, meta) {
-                            return '<a href="#">Join Chat</a>'
-
-                        }
-
-                    },
-                    {
-                        render: function (data, type, full, meta) {
-                            return "<button  data-business-id=" + full.Id +" class='btn btn-info btn-sm js-toggle-open'>Follow</button>"
-
-                        }
-
-                    }
-
+            $('#restaurants').DataTable({
+                "columns": [
+                    { "data": "name" },
+                    { "data": "capacity" },
+                    { "data": "current_capacity" },
+                    { "data": "absolute_capacity" },
+                    { "data": "relative_capacity_(%)" },
+                    { "data": "action" },
+                    { "data": "follow" }
                 ]
             });
         });
+
+
+
     </script>
 
     <script>
 
         $(document).ready(function () {
-
-            $(".js-toggle-open").click(function (e) {
-                var button = $(e.target);
-
-                $.post("/api/openings", { restaurantId: button.attr("data-business-id") })
+            console.log("in");
+            $('button').click(function (e) {
+                var button = e.target
+            
+                
+                $(button).text($(button).text() == 'Follow' ? 'Unfollow' : 'Follow');
+                $(button).toggleClass('btn btn-outline-primary btn btn-primary');
+                $.post("/api/followrestaurnts", { restaurantId: $(button).attr("data-business-id") })
                     .done(function () {
 
                     })
                     .fail(function () {
-                        alert("Open/Close failed");
+                        alert("Follow failed");
                     });
+
+
+                $.post("/api/notifications", { restaurantId: $(button).attr("data-business-id") })
+                    .done(function () {
+
+                    })
+                    .fail(function () {
+                        alert("Notification failed");
+                    });
+
             });
         });
-        
 
 
     </script>
-     
+
 }

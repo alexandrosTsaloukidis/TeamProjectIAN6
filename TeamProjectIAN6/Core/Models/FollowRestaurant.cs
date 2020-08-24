@@ -15,8 +15,9 @@ namespace TeamProjectIAN6.Core.Models
 
         public DateTime? FollowDate { get; set; }
 
+        public DateTime? UnfollowDate { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser User { get; set; }
         public Restaurant Restaurant { get; set; }
 
         protected FollowRestaurant() 
@@ -30,6 +31,12 @@ namespace TeamProjectIAN6.Core.Models
 
         }
 
+
+        public void SetDateTimeUnfollow(DateTime dateTime)
+        {
+            UnfollowDate = dateTime;
+           
+        }
 
         public static FollowRestaurant CreateFollowRestaurant (string userID, int restaurantID, DateTime followDate)
         {

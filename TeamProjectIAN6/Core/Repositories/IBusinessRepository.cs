@@ -11,7 +11,7 @@ namespace TeamProjectIAN6.Repositories
         List<Restaurant> GetMultipleRestaurants(string userId);
         void AddRestaurant(Restaurant restaurant);
 
-        IQueryable<Restaurant> GetRestaurantsQuerable(string location, string area, string category);
+        IQueryable<Restaurant> GetRestaurantsQuerable(string userID, string location, string area, string category);
    
 
     }

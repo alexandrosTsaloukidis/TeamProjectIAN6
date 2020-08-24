@@ -4,7 +4,7 @@
 }
 @Scripts.Render("~/bundles/jquery")
 
-<h2>AdvancedSearch</h2>
+<h2>Advanced Search</h2>
 
 
 @using (Html.BeginForm("Searcher", "Home", FormMethod.Get))
@@ -56,11 +56,16 @@
             !seacrchObj[spanId].includes(document.getElementById(searchInput).value)) {
 
             innerSpanId = searchParameter + document.getElementById(searchInput).value;
+            innerSpanId = innerSpanId.replace(/ /g, "_");
+            console.log(innerSpanId)
             document.getElementById(spanId).innerHTML += " " + "<span id = " + innerSpanId + ">" + document.getElementById(searchInput).value + `<a class="glyphicon glyphicon-remove"  onclick="deleteSearchItem('` + spanId + `', '` + innerSpanId + `', '` + parameterToStringId + `')"></a>` + "</span>";
+          
             seacrchObj[spanId].push((document.getElementById(innerSpanId).innerHTML).split("<")[0])
+           
             document.getElementById(searchInput).value = "";
+           
             document.getElementById(parameterToStringId).value = seacrchObj[spanId].join(",");
-
+          
 
         }
     }

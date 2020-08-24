@@ -222,6 +222,8 @@
     <Compile Include="Controllers\api\EducationsController.cs" />
     <Compile Include="Controllers\api\FollowRestaurntsController.cs" />
     <Compile Include="Controllers\api\LocationsController.cs" />
+    <Compile Include="Controllers\api\NotificationsController.cs" />
+    <Compile Include="Controllers\api\NotifiersController.cs" />
     <Compile Include="Controllers\api\OpeningsController.cs" />
     <Compile Include="Controllers\api\RestaurantsController.cs" />
     <Compile Include="Controllers\api\SearchResultsController.cs" />
@@ -233,11 +235,15 @@
     <Compile Include="Core\Dtos\FollowRestaurantDto.cs" />
     <Compile Include="Core\Dtos\EducationDto.cs" />
     <Compile Include="Core\Dtos\LocationDto.cs" />
+    <Compile Include="Core\Dtos\NotificationDto.cs" />
     <Compile Include="Core\Dtos\OccupationDto.cs" />
     <Compile Include="Core\Dtos\OpeningDto.cs" />
     <Compile Include="Core\Dtos\RestaurantDto.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Models\FollowRestaurant.cs" />
+    <Compile Include="Core\Models\Notification.cs" />
+    <Compile Include="Core\Models\NotificationType.cs" />
+    <Compile Include="Core\Models\UserNotification.cs" />
     <Compile Include="Core\Repositories\ILifeInfoRepository.cs" />
     <Compile Include="Core\ViewModels\SearchViewModel.cs" />
     <Compile Include="Global.asax.cs">
@@ -291,6 +297,58 @@
     <Compile Include="Migrations\202004221121292_AddingFollowRestaurant.cs" />
     <Compile Include="Migrations\202004221121292_AddingFollowRestaurant.Designer.cs">
       <DependentUpon>202004221121292_AddingFollowRestaurant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004222214324_dummy1.cs" />
+    <Compile Include="Migrations\202004222214324_dummy1.Designer.cs">
+      <DependentUpon>202004222214324_dummy1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004271832187_AddingFollowAndFollowButtonToRestaurant.cs" />
+    <Compile Include="Migrations\202004271832187_AddingFollowAndFollowButtonToRestaurant.Designer.cs">
+      <DependentUpon>202004271832187_AddingFollowAndFollowButtonToRestaurant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004271853176_SettingDefaultValuesInfollowRestaurant.cs" />
+    <Compile Include="Migrations\202004271853176_SettingDefaultValuesInfollowRestaurant.Designer.cs">
+      <DependentUpon>202004271853176_SettingDefaultValuesInfollowRestaurant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007121714087_AddingUfollowDateTime.cs" />
+    <Compile Include="Migrations\202007121714087_AddingUfollowDateTime.Designer.cs">
+      <DependentUpon>202007121714087_AddingUfollowDateTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007121747260_ChangeApplicationUserToUserInFollow.cs" />
+    <Compile Include="Migrations\202007121747260_ChangeApplicationUserToUserInFollow.Designer.cs">
+      <DependentUpon>202007121747260_ChangeApplicationUserToUserInFollow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007121853514_ChangeApplicationUserToUserInFollow1.cs" />
+    <Compile Include="Migrations\202007121853514_ChangeApplicationUserToUserInFollow1.Designer.cs">
+      <DependentUpon>202007121853514_ChangeApplicationUserToUserInFollow1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007131621569_AddingNotificationsForFollowing.cs" />
+    <Compile Include="Migrations\202007131621569_AddingNotificationsForFollowing.Designer.cs">
+      <DependentUpon>202007131621569_AddingNotificationsForFollowing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007131623518_AddingNotificationsForFollowing2.cs" />
+    <Compile Include="Migrations\202007131623518_AddingNotificationsForFollowing2.Designer.cs">
+      <DependentUpon>202007131623518_AddingNotificationsForFollowing2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007131627029_AddingNotificationsForFollowing3.cs" />
+    <Compile Include="Migrations\202007131627029_AddingNotificationsForFollowing3.Designer.cs">
+      <DependentUpon>202007131627029_AddingNotificationsForFollowing3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007131657593_creatingRelationBetweenUserAnNotification.cs" />
+    <Compile Include="Migrations\202007131657593_creatingRelationBetweenUserAnNotification.Designer.cs">
+      <DependentUpon>202007131657593_creatingRelationBetweenUserAnNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008232036273_CngangingNotifications.cs" />
+    <Compile Include="Migrations\202008232036273_CngangingNotifications.Designer.cs">
+      <DependentUpon>202008232036273_CngangingNotifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008232059166_CngangingNotificationsAddingFRid.cs" />
+    <Compile Include="Migrations\202008232059166_CngangingNotificationsAddingFRid.Designer.cs">
+      <DependentUpon>202008232059166_CngangingNotificationsAddingFRid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008232138266_DeletingOriginalDateTImeFRomNotifications.cs" />
+    <Compile Include="Migrations\202008232138266_DeletingOriginalDateTImeFRomNotifications.Designer.cs">
+      <DependentUpon>202008232138266_DeletingOriginalDateTImeFRomNotifications.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Repositories\AreaRepository.cs" />
     <Compile Include="Persistence\Repositories\CategoryRepository.cs" />
@@ -470,7 +528,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Images\cover.jpg" />
-    <Content Include="Scripts\app\services\OpenCloseService.js" />
+    <Content Include="Scripts\app\controllers\followingsController.js" />
+    <Content Include="Scripts\app\services\followingService.js" />
     <Content Include="Scripts\bloodhound.js" />
     <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootbox.js" />
@@ -574,10 +633,16 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\typeahead.bundle.js" />
     <Content Include="Scripts\typeahead.bundle.min.js" />
     <Content Include="Scripts\typeahead.jquery.js" />
     <Content Include="Scripts\typeahead.jquery.min.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -620,10 +685,10 @@
     <Content Include="Views\Restaurant\EnterTheBusiness.cshtml" />
     <Content Include="Views\Home\AdvancedSearch.cshtml" />
     <Content Include="Views\Home\SearchResultsView.cshtml" />
+    <Content Include="Scripts\underscore.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\app\controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -640,9 +705,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\TaxService\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202004202024068_dummy.resx">
@@ -680,6 +742,45 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004221121292_AddingFollowRestaurant.resx">
       <DependentUpon>202004221121292_AddingFollowRestaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004222214324_dummy1.resx">
+      <DependentUpon>202004222214324_dummy1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004271832187_AddingFollowAndFollowButtonToRestaurant.resx">
+      <DependentUpon>202004271832187_AddingFollowAndFollowButtonToRestaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004271853176_SettingDefaultValuesInfollowRestaurant.resx">
+      <DependentUpon>202004271853176_SettingDefaultValuesInfollowRestaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007121714087_AddingUfollowDateTime.resx">
+      <DependentUpon>202007121714087_AddingUfollowDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007121747260_ChangeApplicationUserToUserInFollow.resx">
+      <DependentUpon>202007121747260_ChangeApplicationUserToUserInFollow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007121853514_ChangeApplicationUserToUserInFollow1.resx">
+      <DependentUpon>202007121853514_ChangeApplicationUserToUserInFollow1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007131621569_AddingNotificationsForFollowing.resx">
+      <DependentUpon>202007131621569_AddingNotificationsForFollowing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007131623518_AddingNotificationsForFollowing2.resx">
+      <DependentUpon>202007131623518_AddingNotificationsForFollowing2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007131627029_AddingNotificationsForFollowing3.resx">
+      <DependentUpon>202007131627029_AddingNotificationsForFollowing3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007131657593_creatingRelationBetweenUserAnNotification.resx">
+      <DependentUpon>202007131657593_creatingRelationBetweenUserAnNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008232036273_CngangingNotifications.resx">
+      <DependentUpon>202008232036273_CngangingNotifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008232059166_CngangingNotificationsAddingFRid.resx">
+      <DependentUpon>202008232059166_CngangingNotificationsAddingFRid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008232138266_DeletingOriginalDateTImeFRomNotifications.resx">
+      <DependentUpon>202008232138266_DeletingOriginalDateTImeFRomNotifications.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Persistence\Migrations\202003221907242_Initial.resx">
       <DependentUpon>202003221907242_Initial.cs</DependentUpon>
@@ -768,6 +869,9 @@
     <EmbeddedResource Include="Persistence\Migrations\202004130634541_AddingRelativeAndAbsoluteCapacities.resx">
       <DependentUpon>202004130634541_AddingRelativeAndAbsoluteCapacities.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\TaxService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

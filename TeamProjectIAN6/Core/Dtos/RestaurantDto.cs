@@ -66,7 +66,13 @@ namespace TeamProjectIAN6.Models
         public AreaDto Area { get; set; }
         //public Image ProfilePic { get; set; }
         public CategoryDto Category { get; set; }
-      
+
+        public string FollowButtonClass { get; set; } = "btn btn-info btn-sm js-toggle-follow";
+
+        public string FollowButtonText { get; set; } = "Follow";
+
+
+
 
     }
 }

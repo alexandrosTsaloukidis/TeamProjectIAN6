@@ -6,13 +6,12 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
-            <li class="notifications">
+            <li class="notificationsGeneral">
                 <a href="#">
                     <i class="glyphicon glyphicon-bell"></i>
-                    <span class="badge js-notifications-count hide"></span>
                 </a>
             </li>
-            <li>
+            <li class="notificationsBusiness">
                 <a href="#">
                     <i class="glyphicon glyphicon-home"></i>
                     <span class="badge js-notifications-count hide"></span>
@@ -38,3 +37,4 @@ else
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
+

@@ -34,6 +34,10 @@ namespace TeamProjectIAN6.Models
 
         public DbSet<FollowRestaurant> FollowRestaurants { get; set; }
 
+        public DbSet<Notification> Notifications { get; set; }
+
+        public DbSet<UserNotification> UserNotifications { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -43,10 +47,10 @@ namespace TeamProjectIAN6.Models
                 .HasKey(p => p.RestaurantId)
                 ;
 
-            //modelBuilder.Entity<Restaurant>()
-            //    .HasOptional(r => r.Parking)
-            //    .WithRequired(p => p.Restaurant)
-            //    ;
+            modelBuilder.Entity<Restaurant>()
+                .HasOptional(r => r.Parking)
+                .WithRequired(p => p.Restaurant)
+                ;
 
             modelBuilder.Configurations.Add(new RestaurantConfiguration());
 
@@ -61,6 +65,7 @@ namespace TeamProjectIAN6.Models
                 .WithMany(u => u.UserClosers)
                 .HasForeignKey(o => o.UserCloserId)
                 .WillCascadeOnDelete(false);
+
 
         }
 

@@ -8,6 +8,7 @@ using System.Data.Entity;
 using AutoMapper;
 using TeamProjectIAN6.Core.ViewModels;
 using TeamProjectIAN6.Core;
+using Microsoft.AspNet.Identity;
 
 namespace TeamProjectIAN6.Controllers
 {
@@ -40,16 +41,18 @@ namespace TeamProjectIAN6.Controllers
 
         public ActionResult Searcher(string locationsToString, string areasToString, string categoriesToString)
         {
-
-            var restaurants = unitOfWork.Businesses.GetRestaurantsQuerable(locationsToString, areasToString, categoriesToString).ToList();
+            string userId = User.Identity.GetUserId();
+            var restaurants = unitOfWork.Businesses.GetRestaurantsQuerable(userId, locationsToString, areasToString, categoriesToString).ToList();
             if (restaurants == null || restaurants.Count == 0)
             {
                 return HttpNotFound("No results for the requested query");
             }
             var searchViewModel = new List<SearchViewModel>();
-            foreach (var restaurant in restaurants)
-                searchViewModel.Add(restaurant.CreateSearchViewModel(locationsToString, areasToString, categoriesToString));
-
+            foreach (var restaurant in restaurants) 
+            { 
+                var alreadyFollows = unitOfWork.FollowRestaurants.CheckIfAlreadyFollows(userId, restaurant.ID);
+                searchViewModel.Add(restaurant.CreateSearchViewModel(userId, alreadyFollows, locationsToString, areasToString, categoriesToString));
+            }
             return View("SearchResultsView", searchViewModel);
         }
 
@@ -64,17 +67,20 @@ namespace TeamProjectIAN6.Controllers
         }
 
 
-
-
         [Authorize]
         public ActionResult PlacesToGo()
         {
-
-            var restaurants = unitOfWork.Businesses.GetRestaurantsQuerable(null, null, null).ToList();
-            var searchViewModel = new List<SearchViewModel>();
+            string userId = User.Identity.GetUserId();
+            var restaurants = unitOfWork.Businesses.GetRestaurantsQuerable(userId, null, null, null).ToList();
+            
+            
+            var searchViewModels = new List<SearchViewModel>();
             foreach (var restaurant in restaurants)
-                searchViewModel.Add(restaurant.CreateSearchViewModel(null, null, null));
-            return View("SearchResultsView", searchViewModel);
+            {
+                var alreadyFollows = unitOfWork.FollowRestaurants.CheckIfAlreadyFollows(userId, restaurant.ID);
+                searchViewModels.Add(restaurant.CreateSearchViewModel(userId, alreadyFollows, null, null, null));
+            }
+            return View("SearchResultsView", searchViewModels);
 
         }
 

@@ -25,7 +25,12 @@ namespace TeamProjectIAN6.Persistence.Repositories
 
         public bool CheckIfAlreadyFollows(string userId, int restaurntId)
         {
-            return _context.FollowRestaurants.Any(f => f.UserId == userId && f.RestaurantId == restaurntId);
+            return _context.FollowRestaurants.Any(f => f.UserId == userId && f.RestaurantId == restaurntId && f.UnfollowDate == null);
+        }
+
+        public List<FollowRestaurant> GetUserFollowings(string userId)
+        {
+           return _context.FollowRestaurants.Where(fr => fr.UserId == userId).ToList();
         }
     }
 }

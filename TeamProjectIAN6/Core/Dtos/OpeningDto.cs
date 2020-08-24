@@ -8,5 +8,6 @@ namespace TeamProjectIAN6.Dtos
     public class OpeningDto
     {
         public int RestaurantId { get; set; }
+
     }
 }
